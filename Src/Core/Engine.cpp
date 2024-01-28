@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include <iostream>
 
 
 Engine::Engine(GLFWwindow* glWin)
@@ -9,71 +10,90 @@ Engine::Engine(GLFWwindow* glWin)
 
 void Engine::MainLoop()
 {
+
+	shaderProgram = CreateShader(vertexShader, fragmentShader);
+	CreateTriangle();
+
 	while (!glfwWindowShouldClose(window))
 	{
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+		glUseProgram(shaderProgram);
+		Draw();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-		DrawCube();
 	}
 }
 
-void Engine::DrawCube()
+void Engine::CreateCube()
 {
-	GLuint VAO;
-	glGenVertexArrays(1, &VAO);
+
+}
+
+void Engine::Draw() {
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+}
+
+void Engine::CreateTriangle()
+{
+	// Generate .. Bind .. Copy
+	glGenVertexArrays(1, &VAO); 
 	glBindVertexArray(VAO);
 
-	// Generate and bind VBO
-	GLuint VBO;
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVerts), triangleVerts, GL_STATIC_DRAW);
 
-	// Generate and bind EBO
-	GLuint EBO;
-	glGenBuffers(1, &EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cubeIndices), cubeIndices, GL_STATIC_DRAW);
-
-	// Set vertex attribute pointers
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	/*
+	I enable 0 since this is specifically talking about the vertex attribute.
+	In the shader source layout location to 0
+	*/
 	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (void*)0);
+}
 
-	// Unbind the VBO (optional, for cleanliness)
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+GLuint Engine::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
+{
+	// Read in Shaders .. Link them .. Compile into single shader program
+	GLuint program = glCreateProgram();
+	GLuint vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
+	GLuint fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
+	
+	glAttachShader(program, vs);
+	glAttachShader(program, fs);
+	glLinkProgram(program);
+	glValidateProgram(program);
 
-	// Compile the vertex shader
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-	// Check for shader compile errors...
+	glDeleteShader(vs);
+	glDeleteShader(fs);
 
-	// Compile the fragment shader
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
-	// Check for shader compile errors...
+	return program;
+}
 
-	// Create shader program and link shaders to it
-	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-	// Check for linking errors...
+unsigned int Engine::CompileShader(unsigned int glType, const std::string& source)
+{
+	GLuint id = glCreateShader(glType);
+	const char* src = source.c_str();
+	glShaderSource(id, 1, &src, nullptr);
+	glCompileShader(id);
 
-	// Delete shaders; they're linked into the program now and no longer necessary
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	// Error handling
+	int result;
+	glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+	if (result == GL_FALSE)
+	{
+		int len;
+		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
+		char message[512];
+		glGetShaderInfoLog(id, len, &len, message);
+		
+		std::cout << "Failed to compile " << (glType == GL_VERTEX_SHADER ? "vertex" : "fragment");
+		std::cout << message << std::endl;
+		
+		glDeleteShader(id);
+		return 0;
+	}
 
-	// Unbind VAO (optional, for cleanliness)
-	glBindVertexArray(0);
-
-	// Drawing
-	glUseProgram(shaderProgram); // Use the compiled shader program
-	glBindVertexArray(VAO); // Bind the vertex array object
-	glDrawElements(GL_LINES, sizeof(cubeIndices) / sizeof(cubeIndices[0]), GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0); // Unbind VAO
-	glUseProgram(0); // Unbind shader program
-
+	return id;
 }
