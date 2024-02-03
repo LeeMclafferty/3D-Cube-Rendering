@@ -23,7 +23,6 @@ void ObjectRenderer::CreateCube()
 	glGenBuffers(1, &EBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cubeIndices), cubeIndices, GL_STATIC_DRAW);
-
 	/*
 	I enable 0 since this is specifically talking about the vertex attribute.
 	In the shader source layout location to 0
@@ -55,7 +54,7 @@ void ObjectRenderer::CreateRectangle()
 
 	// Color
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(GLuint) * 7, (char*)(sizeof(GLfloat) * 3));
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 7, (char*)(sizeof(GLfloat) * 3));
 }
 
 void ObjectRenderer::CreateDoubleTriangles()
@@ -74,7 +73,7 @@ void ObjectRenderer::CreateDoubleTriangles()
 
 	// Position
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(GLfloat) * 7, (char*)(sizeof(GLfloat) * 3));
+	glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(GLfloat) * 7, (void*)0);
 
 	// Color
 	glEnableVertexAttribArray(1);
