@@ -11,10 +11,9 @@ Engine::Engine(GLFWwindow* glWin)
 
 void Engine::MainLoop()
 {
-
 	ShaderHelpers::ShaderSource source = ShaderHelpers::ParseShader("Resources/Shaders/Basic.shader");
 	GLuint shaderProgram = objectRenderer.CreateShader(source.vertexSource, source.fragmentSource);
-	objectRenderer.CreateRectangle();
+	objectRenderer.CreateDoubleTriangles();
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -25,4 +24,6 @@ void Engine::MainLoop()
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+
+	glDeleteProgram(shaderProgram);
 }

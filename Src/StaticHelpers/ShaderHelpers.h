@@ -1,4 +1,6 @@
 #pragma once
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -47,5 +49,42 @@ namespace ShaderHelpers
 			}
 		}
 		return { ss[0].str(), ss[1].str() };
+	}
+
+	static bool CompiledSuccessfully(int& result, const GLuint& id, const GLuint& glType)
+	{
+		if (result == GL_FALSE)
+		{
+			int len;
+			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
+			char* message = new GLchar[len];
+			glGetShaderInfoLog(id, len, &len, message);
+
+			std::cout << "Failed to compile " << (glType == GL_VERTEX_SHADER ? "vertex" : "fragment");
+			std::cout << message << std::endl;
+
+			glDeleteShader(id);
+			delete[] message;
+			return false;
+		}
+		return true;
+	}
+
+	static bool LinkedSuccessfully(int& result, const GLuint& id)
+	{
+		if (result == GL_FALSE)
+		{
+			int len;
+			glGetProgramiv(id, GL_INFO_LOG_LENGTH, &len);
+			char* message = new GLchar[len];
+			glGetProgramInfoLog(id, len, &len, message);
+
+			std::cout << message << std::endl;
+
+			glDeleteShader(id);
+			delete[] message;
+			return false;
+		}
+		return true;
 	}
 }

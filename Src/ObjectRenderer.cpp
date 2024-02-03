@@ -1,5 +1,6 @@
 #include "ObjectRenderer.h"
 #include <iostream>
+#include "StaticHelpers/ShaderHelpers.h"
 
 void ObjectRenderer::Draw() 
 {
@@ -22,6 +23,7 @@ void ObjectRenderer::CreateCube()
 	glGenBuffers(1, &EBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cubeIndices), cubeIndices, GL_STATIC_DRAW);
+
 	/*
 	I enable 0 since this is specifically talking about the vertex attribute.
 	In the shader source layout location to 0
@@ -49,7 +51,34 @@ void ObjectRenderer::CreateRectangle()
 	In the shader source layout location to 0
 	*/
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3, (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 7, (void*)0);
+
+	// Color
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(GLuint) * 7, (char*)(sizeof(GLfloat) * 3));
+}
+
+void ObjectRenderer::CreateDoubleTriangles()
+{
+	// Generate .. Bind .. Copy
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(doubleTriangleVerticies), doubleTriangleVerticies, GL_STATIC_DRAW);
+
+	glGenBuffers(1, &EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(doubleTriangleIndicies), doubleTriangleIndicies, GL_STATIC_DRAW);
+
+	// Position
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(GLfloat) * 7, (char*)(sizeof(GLfloat) * 3));
+
+	// Color
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 4, GL_FLOAT, false, sizeof(GLfloat) * 7, (char*)(sizeof(GLfloat) * 3));
 }
 
 GLuint ObjectRenderer::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
@@ -63,6 +92,13 @@ GLuint ObjectRenderer::CreateShader(const std::string& vertexShader, const std::
 	glAttachShader(program, fs);
 	glLinkProgram(program);
 	glValidateProgram(program);
+
+	int result;
+	glGetProgramiv(program, GL_LINK_STATUS, &result);
+	if (!ShaderHelpers::LinkedSuccessfully(result, program))
+	{
+		return 0;
+	}
 
 	glDeleteShader(vs);
 	glDeleteShader(fs);
@@ -80,17 +116,8 @@ unsigned int ObjectRenderer::CompileShader(unsigned int glType, const std::strin
 	// Error handling
 	int result;
 	glGetShaderiv(id, GL_COMPILE_STATUS, &result);
-	if (result == GL_FALSE)
+	if (!ShaderHelpers::CompiledSuccessfully(result, id, glType))
 	{
-		int len;
-		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
-		char message[512];
-		glGetShaderInfoLog(id, len, &len, message);
-
-		std::cout << "Failed to compile " << (glType == GL_VERTEX_SHADER ? "vertex" : "fragment");
-		std::cout << message << std::endl;
-
-		glDeleteShader(id);
 		return 0;
 	}
 
