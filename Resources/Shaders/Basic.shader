@@ -4,11 +4,17 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec4 color;
 
+uniform mat4 modelTransformMatrix;
+uniform mat4 projectionMatrix;
+
 out vec4 vertexColor;
 
 void main()
 {
-	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+	vec4 vertexPos = vec4(aPos, 1.0);
+	vec4 newPos = modelTransformMatrix * vertexPos;
+	vec4 projectedPos = projectionMatrix * newPos;
+	gl_Position = projectedPos;
 	vertexColor = color;
 };
 

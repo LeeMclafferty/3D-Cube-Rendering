@@ -6,6 +6,7 @@
 
 int main(void)
 {
+	int windowWidth = 800, windowHeight = 600;
 	GLFWwindow* window;
 
 	/* Initialize GLFW */
@@ -13,7 +14,7 @@ int main(void)
 		return -1;
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(800, 600, "The 3D Cube", NULL, NULL);
+	window = glfwCreateWindow(windowWidth, windowHeight, "The 3D Cube", NULL, NULL);
 
 	if (!window)
 	{
@@ -24,7 +25,7 @@ int main(void)
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
-
+	
 	/* Initialize GLEW */
 	GLenum err = glewInit();
 	if (GLEW_OK != err)

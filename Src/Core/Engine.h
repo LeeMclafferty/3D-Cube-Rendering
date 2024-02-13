@@ -8,11 +8,11 @@ class Engine
 {
 
 public:
-	Engine(class GLFWwindow* glWin);
+	Engine(struct GLFWwindow* glWin);
 	void MainLoop();
 
 private:
-	class GLFWwindow* window;
+	struct GLFWwindow* window;
 	ObjectRenderer objectRenderer;
 };
 

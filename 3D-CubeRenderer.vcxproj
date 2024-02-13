@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Dev\LocalRepos\3D-CubeRenderer\Resources;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\SDL2-2.28.5\include;$(SolutionDir)Dependencies\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)Src;D:\Dev\LocalRepos\3D-CubeRenderer\Dependencies\glfw-3.3.9.bin.WIN64\include;D:\Dev\LocalRepos\3D-CubeRenderer\Dependencies\SDL2-2.28.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\SDL2-2.28.5\include;$(SolutionDir)Dependencies\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)Resources;$(SolutionDir)Src;$(SolutionDir)glfw-3.3.9.bin.WIN64\include;$(SolutionDir)SDL2-2.28.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
@@ -110,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Dev\LocalRepos\3D-CubeRenderer\Resources;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\SDL2-2.28.5\include;$(SolutionDir)Dependencies\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)Src;D:\Dev\LocalRepos\3D-CubeRenderer\Dependencies\glfw-3.3.9.bin.WIN64\include;D:\Dev\LocalRepos\3D-CubeRenderer\Dependencies\SDL2-2.28.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\SDL2-2.28.5\include;$(SolutionDir)Dependencies\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)Resources;$(SolutionDir)Src;$(SolutionDir)glfw-3.3.9.bin.WIN64\include;$(SolutionDir)SDL2-2.28.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
@@ -128,7 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\SDL2-2.28.5\include;$(SolutionDir)Dependencies\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)Src;D:\Dev\LocalRepos\3D-CubeRenderer\Dependencies\SDL2-2.28.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\SDL2-2.28.5\include;$(SolutionDir)Dependencies\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)Resources;$(SolutionDir)Src;D:\Dev\LocalRepos\3D-CubeRenderer\Dependencies\SDL2-2.28.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
@@ -146,7 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\SDL2-2.28.5\include;$(SolutionDir)Dependencies\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)Src;D:\Dev\LocalRepos\3D-CubeRenderer\Dependencies\SDL2-2.28.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\SDL2-2.28.5\include;$(SolutionDir)Dependencies\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)Resources;$(SolutionDir)Src;D:\Dev\LocalRepos\3D-CubeRenderer\Dependencies\SDL2-2.28.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
@@ -159,14 +159,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\PremadeShapes\ShapeCreator.cpp" />
     <ClCompile Include="Src\3D-CubeRenderer.cpp" />
     <ClCompile Include="Src\ObjectRenderer.cpp" />
     <ClCompile Include="Src\Core\Engine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\PremadeShapes\PremadeShapes.h" />
+    <ClInclude Include="Src\PremadeShapes\ShapeCreator.h" />
+    <ClInclude Include="Src\PremadeShapes\ShapeData.h" />
     <ClInclude Include="Src\ObjectRenderer.h" />
     <ClInclude Include="Src\Core\Engine.h" />
     <ClInclude Include="Src\StaticHelpers\ShaderHelpers.h" />
+    <ClInclude Include="Src\Struct\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic.shader" />
