@@ -40,7 +40,7 @@ void ObjectRenderer::Draw()
 	glUniformMatrix4fv(modelTranformMatrixUniform, 1, GL_FALSE, &modelTransformMatrix[0][0]);
 	glUniformMatrix4fv(projectionMatrixUniform, 1, GL_FALSE, &projectionMatrix[0][0]);
 
-	glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 }
 
 unsigned int ObjectRenderer::CompileShader(unsigned int glType, const std::string& source)

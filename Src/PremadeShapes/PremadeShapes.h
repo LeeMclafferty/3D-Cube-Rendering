@@ -17,10 +17,19 @@ namespace PremadeShapes
 		glm::vec3(-0.5f,  0.5f,  0.5f),		Color(1.0f, 0.0f, 0.0f, 1.0f), // Vertex 7
 	};
 
-	GLuint cubeIndices[24] = {
-		0, 1, 1, 2, 2, 3, 3, 0, // Bottom Face
-		4, 5, 5, 6, 6, 7, 7, 4, // Top Face
-		0, 4, 1, 5, 2, 6, 3, 7  // Side Edges
+	GLuint cubeIndices[36] = {
+		// Front face
+		0, 1, 2, 0, 2, 3,
+		// Back face
+		4, 5, 6, 4, 6, 7,
+		// Left face
+		0, 3, 7, 0, 7, 4,
+		// Right face
+		1, 2, 6, 1, 6, 5,
+		// Top face
+		3, 2, 6, 3, 6, 7,
+		// Bottom face
+		0, 1, 5, 0, 5, 4
 	};
 
 	Vertex recVertices[28] = {
