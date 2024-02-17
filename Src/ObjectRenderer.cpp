@@ -8,10 +8,9 @@
 #include "PremadeShapes/ShapeData.h"
 
 
-ObjectRenderer::ObjectRenderer()
-	:shapeCreator(ShapeCreator()), shaderProgram(0)
+ObjectRenderer::ObjectRenderer(GLFWwindow* win)
+	:shapeCreator(ShapeCreator()), shaderProgram(0), window(win)
 {
-
 }
 
 void ObjectRenderer::SetupPremadeShape()
@@ -23,14 +22,13 @@ void ObjectRenderer::Draw()
 {
 	glBindVertexArray(shapeCreator.GetVAO());
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	
+
 	/* 
 		* Create a transform matrix and projection matrix
 		* Transform Matrix moves object -3 in the z axis to move away from the camera
 	*/
-	glm::mat4 modelTransformMatrix = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, -3.0f));
-	glm::mat4 projectionMatrix = glm::perspective(60.f, 800.f / 600.f, 0.1f, 10.0f);
-	
+	glm::mat4 modelTransformMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.f, 0.f, -3));
+	glm::mat4 projectionMatrix = glm::perspective(glm::radians(60.f), GetAspectRatio(), 0.1f, 100.f);
 	// Send Matrix data to OpenGL using Uniform variables in the Shader.
 	GLint modelTranformMatrixUniform =
 		glGetUniformLocation(shaderProgram, "modelTransformMatrix");
@@ -61,16 +59,11 @@ unsigned int ObjectRenderer::CompileShader(unsigned int glType, const std::strin
 	return id;
 }
 
-int ObjectRenderer::GetWindowWidth() const
+float ObjectRenderer::GetAspectRatio()
 {
-	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	return mode->width;
-}
-
-int ObjectRenderer::GetWindowHeight() const
-{
-	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	return mode->height;
+	int width, height;
+	glfwGetFramebufferSize(window, &width, &height);
+	return width / (float)height;
 }
 
 GLuint ObjectRenderer::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)

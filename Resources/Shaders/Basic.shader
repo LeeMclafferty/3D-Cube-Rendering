@@ -10,7 +10,7 @@ out vec4 vertexColor;
 
 void main()
 {
-	vec4 vertexPos = vec4(aPos, 1.0);
+	vec4 vertexPos = vec4(aPos.x, aPos.y, aPos.z, 1.0);
 	vec4 newPos = modelTransformMatrix * vertexPos;
 	vec4 projectedPos = projectionMatrix * newPos;
 	gl_Position = projectedPos;

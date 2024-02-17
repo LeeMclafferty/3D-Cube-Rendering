@@ -5,31 +5,37 @@
 
 namespace PremadeShapes
 {
-	Vertex cubeVertices[56] = {
+	Vertex cubeVertices[8] = {
 		// Position							// Color 
-		glm::vec3(-0.5f, -0.5f, -0.5f),		Color(1.0f, 0.0f, 0.0f, 1.0f), // Vertex 0
-		glm::vec3(0.5f, -0.5f, -0.5f),		Color(1.0f, 0.0f, 0.0f, 1.0f), // Vertex 1
-		glm::vec3(0.5f,  0.5f, -0.5f),		Color(1.0f, 0.0f, 0.0f, 1.0f), // Vertex 2
-		glm::vec3(-0.5f,  0.5f, -0.5f),		Color(1.0f, 0.0f, 0.0f, 1.0f), // Vertex 3
-		glm::vec3(-0.5f, -0.5f,  0.5f),		Color(1.0f, 0.0f, 0.0f, 1.0f), // Vertex 4
-		glm::vec3(0.5f, -0.5f,  0.5f),		Color(1.0f, 0.0f, 0.0f, 1.0f), // Vertex 5
-		glm::vec3(0.5f,  0.5f,  0.5f),		Color(1.0f, 0.0f, 0.0f, 1.0f), // Vertex 6
-		glm::vec3(-0.5f,  0.5f,  0.5f),		Color(1.0f, 0.0f, 0.0f, 1.0f), // Vertex 7
+		glm::vec3(-0.5f, -0.5f, -0.5f),		Color(0.6f, 0.3f, 0.0f, 1.0f), // Vertex 0
+		glm::vec3(0.5f, -0.5f, -0.5f),		Color(0.5f, 0.0f, 0.8f, 1.0f), // Vertex 1
+		glm::vec3(0.5f,  0.5f, -0.5f),		Color(0.0f, 0.5f, 0.7f, 1.0f), // Vertex 2
+		glm::vec3(-0.5f,  0.5f, -0.5f),		Color(0.6f, 0.3f, 0.0f, 1.0f), // Vertex 3
+		glm::vec3(-0.5f, -0.5f,  0.5f),		Color(0.5f, 0.0f, 0.8f, 1.0f), // Vertex 4
+		glm::vec3(0.5f, -0.5f,  0.5f),		Color(0.0f, 0.5f, 0.7f, 1.0f), // Vertex 5
+		glm::vec3(0.5f,  0.5f,  0.5f),		Color(0.6f, 0.3f, 0.0f, 1.0f), // Vertex 6
+		glm::vec3(-0.5f,  0.5f,  0.5f),		Color(0.5f, 0.0f, 0.8f, 1.0f), // Vertex 7
 	};
 
 	GLuint cubeIndices[36] = {
 		// Front face
-		0, 1, 2, 0, 2, 3,
+		0, 1, 2, 
+		0, 2, 3,
 		// Back face
-		4, 5, 6, 4, 6, 7,
+		4, 5, 6, 
+		4, 6, 7,
 		// Left face
-		0, 3, 7, 0, 7, 4,
+		0, 3, 7, 
+		0, 7, 4,
 		// Right face
-		1, 2, 6, 1, 6, 5,
+		1, 2, 6, 
+		1, 6, 5,
 		// Top face
-		3, 2, 6, 3, 6, 7,
+		3, 2, 6, 
+		3, 6, 7,
 		// Bottom face
-		0, 1, 5, 0, 5, 4
+		0, 1, 5, 
+		0, 5, 4
 	};
 
 	Vertex recVertices[28] = {
@@ -69,7 +75,7 @@ namespace PremadeShapes
 		3, 4, 5
 	};
 
-	Vertex triangleVerticies[42] =
+	Vertex triangleVerticies[3] =
 	{
 		// Triangle 2
 		// Position						//Color

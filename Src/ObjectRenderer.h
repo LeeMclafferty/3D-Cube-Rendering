@@ -9,7 +9,7 @@ class ObjectRenderer
 {
 
 public:
-	ObjectRenderer();
+	ObjectRenderer(GLFWwindow* win);
 	void SetupPremadeShape();
 	void Draw();
 	GLuint CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
@@ -17,9 +17,9 @@ public:
 
 private:
 
+	GLFWwindow* window;
 	ShapeCreator shapeCreator;
-	int GetWindowWidth() const;
-	int GetWindowHeight() const;
+	float GetAspectRatio();
 	GLuint shaderProgram;
 };
 
