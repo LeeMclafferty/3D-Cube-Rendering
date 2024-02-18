@@ -1,8 +1,9 @@
 #pragma once
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <string>
+#include <GLFW/glfw3.h>
 #include "ObjectRenderer.h"
+#include "InputHandler.h"
 
 class Engine
 {
@@ -14,5 +15,6 @@ public:
 private:
 	struct GLFWwindow* window;
 	ObjectRenderer objectRenderer;
+	InputHandler inputHandler;
 };
 

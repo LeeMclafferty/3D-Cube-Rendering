@@ -4,10 +4,10 @@
 #include "StaticHelpers/ShaderHelpers.h"
 
 Engine::Engine(GLFWwindow* glWin)
-	:window(glWin), objectRenderer(ObjectRenderer(glWin))
+	:window(glWin), objectRenderer(ObjectRenderer(glWin)), inputHandler(glWin, &objectRenderer)
 {
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 }
 
 void Engine::MainLoop()

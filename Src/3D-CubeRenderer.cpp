@@ -13,17 +13,14 @@ int main(void)
 	if (!glfwInit())
 		return -1;
 
-	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(windowWidth, windowHeight, "The 3D Cube", NULL, NULL);
 
 	if (!window)
 	{
 		glfwTerminate();
-
 		return -1;
 	}
 
-	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 	
 	/* Initialize GLEW */
