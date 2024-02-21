@@ -3,6 +3,7 @@
 
 #include "StaticHelpers/ShaderHelpers.h"
 
+
 Engine::Engine(GLFWwindow* glWin)
 	:window(glWin), objectRenderer(ObjectRenderer(glWin)), inputHandler(glWin, &objectRenderer)
 {
@@ -12,6 +13,7 @@ Engine::Engine(GLFWwindow* glWin)
 
 void Engine::MainLoop()
 {
+	Camera camera;
 	ShaderHelpers::ShaderSource source = ShaderHelpers::ParseShader("Resources/Shaders/Basic.shader");
 	GLuint shaderProgram = objectRenderer.CreateShader(source.vertexSource, source.fragmentSource);
 	objectRenderer.SetupPremadeShape();

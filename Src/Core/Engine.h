@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include "ObjectRenderer.h"
 #include "InputHandler.h"
+#include "Camera.h"
 
 class Engine
 {
@@ -16,5 +17,6 @@ private:
 	struct GLFWwindow* window;
 	ObjectRenderer objectRenderer;
 	InputHandler inputHandler;
+	Camera camera;
 };
 
