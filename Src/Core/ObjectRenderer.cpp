@@ -6,12 +6,13 @@
 #include <GLFW/glfw3.h>
 
 #include "PremadeShapes/ShapeData.h"
+#include "Camera.h"
 
 
-ObjectRenderer::ObjectRenderer(GLFWwindow* win)
-	:shapeCreator(ShapeCreator()), shaderProgram(0), window(win),
+ObjectRenderer::ObjectRenderer(GLFWwindow* win, Camera* cam)
+	:shapeCreator(ShapeCreator()), shaderProgram(0), window(win), camera(cam),
 	objectScale(glm::vec3(1.f)), objectRotation(glm::vec3(1.f,1.f,1.f)), 
-	objectTranslation(glm::vec3(0.f, 0.f, -3.f)), rotationAngle(0.f)
+	objectTranslation(glm::vec3(0.f, 0.f, -5.f)), rotationAngle(0.f)
 {
 }
 
@@ -26,8 +27,8 @@ void ObjectRenderer::Draw()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	TransformObject(objectScale, objectRotation, rotationAngle, objectTranslation);
-	SendProjectionData(60.f, GetAspectRatio(), 0.1f, 100.f);
-
+	SendProjectionData(60.f, GetAspectRatio(), .1f, 100.f);
+	ShaderHelpers::SetUniform(shaderProgram, "viewMatrix", camera->GetViewMatrix());
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 }
 
@@ -87,8 +88,7 @@ float ObjectRenderer::GetAspectRatio()
 void ObjectRenderer::SendProjectionData(float fov, float aspectRatio, float nearPlane, float farPlane)
 {
 	glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
-	GLint projectionMatrixUniform = glGetUniformLocation(shaderProgram, "projectionMatrix");
-	glUniformMatrix4fv(projectionMatrixUniform, 1, GL_FALSE, &projectionMatrix[0][0]);
+	ShaderHelpers::SetUniform(shaderProgram, "projectionMatrix", projectionMatrix);
 }
 
 /* Send Transformations to Vertex Shader. SRT order*/
@@ -97,11 +97,9 @@ void ObjectRenderer::TransformObject(glm::vec3 scale, glm::vec3 rotation, float 
 	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
 	glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(rotationAngle), rotation);
 	glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), translation);
-
 	glm::mat4 modelTransformMatrix = translationMatrix * rotationMatrix * scaleMatrix;
 
-	GLint modelTransformMatrixUniform = glGetUniformLocation(shaderProgram, "modelTransformMatrix");
-	glUniformMatrix4fv(modelTransformMatrixUniform, 1, GL_FALSE, &modelTransformMatrix[0][0]);
+	ShaderHelpers::SetUniform(shaderProgram, "modelTransformMatrix", modelTransformMatrix);
 }
 
 void ObjectRenderer::AddObjectScale(glm::vec3 scale)

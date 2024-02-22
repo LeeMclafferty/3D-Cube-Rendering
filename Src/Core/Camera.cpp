@@ -2,14 +2,13 @@
 #include <matrix_transform.hpp>
 
 Camera::Camera()
-	:globalPosition(glm::vec3(0.f, 0.f, 5.f)), cameraTarget(0.f, 0.f, 0.f)
+	:globalPosition(glm::vec3(0.f, 0.f, 0.f)), cameraTarget(0.f, 0.f, -3.f)
 {
-	GetViewMatrix();
 }
 
 glm::vec3 Camera::GetCameraDirection() const
 {
-	return glm::normalize(globalPosition - cameraTarget);
+	return globalPosition + cameraTarget;
 }
 
 glm::vec3 Camera::GetCameraRight() const
@@ -26,8 +25,8 @@ glm::vec3 Camera::GetCameraUp() const
 glm::mat4 Camera::GetViewMatrix() const
 {
 	return glm::lookAt(
-		glm::vec3(0.0f, 0.0f, 3.0f),
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(0.0f, 1.0f, 0.0f)
+		globalPosition,
+		GetCameraDirection(),
+		GetCameraUp()
 	);
 }

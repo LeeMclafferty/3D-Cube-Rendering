@@ -3,19 +3,19 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec4 color;
 
-uniform mat4 modelTransformMatrix;
-uniform mat4 projectionMatrix;
+uniform mat4 modelTransformMatrix; // Model to world
+uniform mat4 viewMatrix; // World to view
+uniform mat4 projectionMatrix; // View to projection
 
 out vec4 vertexColor;
 
 void main()
 {
-	vec4 vertexPos = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-	vec4 newPos = modelTransformMatrix * vertexPos;
-	vec4 projectedPos = projectionMatrix * newPos;
-	gl_Position = projectedPos;
-	vertexColor = color;
-};
+    vec4 worldPos = modelTransformMatrix * vec4(aPos, 1.0);
+    gl_Position = projectionMatrix * viewMatrix * worldPos;
+    vertexColor = color;
+}
+
 
 #shader fragment
 #version 330 core

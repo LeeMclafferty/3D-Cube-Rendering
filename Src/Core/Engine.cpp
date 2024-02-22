@@ -5,7 +5,7 @@
 
 
 Engine::Engine(GLFWwindow* glWin)
-	:window(glWin), objectRenderer(ObjectRenderer(glWin)), inputHandler(glWin, &objectRenderer)
+	:window(glWin), objectRenderer(ObjectRenderer(glWin, &camera)), inputHandler(glWin, &objectRenderer)
 {
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_CULL_FACE);
@@ -13,10 +13,10 @@ Engine::Engine(GLFWwindow* glWin)
 
 void Engine::MainLoop()
 {
-	Camera camera;
 	ShaderHelpers::ShaderSource source = ShaderHelpers::ParseShader("Resources/Shaders/Basic.shader");
 	GLuint shaderProgram = objectRenderer.CreateShader(source.vertexSource, source.fragmentSource);
 	objectRenderer.SetupPremadeShape();
+	camera.SetCameraTarget(objectRenderer.GetObjectTransform());
 
 	while (!glfwWindowShouldClose(window))
 	{

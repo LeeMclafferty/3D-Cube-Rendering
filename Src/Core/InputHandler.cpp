@@ -68,7 +68,7 @@ void InputHandler::KeyPressCallback(GLFWwindow* win, int key, int scancode, int 
 	}
 	else if (key == GLFW_KEY_X && action == GLFW_PRESS)
 	{
-		currentInstance->objectRenderer->AddObjectTranslation(glm::vec3(0.1f, 0.f, -0.1f));
+		currentInstance->objectRenderer->AddObjectTranslation(glm::vec3(0.f, 0.f, -0.1f));
 	}
 }
 
@@ -108,11 +108,12 @@ void InputHandler::MouseCallback(GLFWwindow* window, int button, int action, int
 	}
 }
 
+/* Rotate mesh on x and y based on mouse. */
 void InputHandler::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	if (currentInstance->inputState == InputState::mouse)
 	{
-		float sensitivity = 0.05f; // Adjust sensitivity as needed
+		float sensitivity = 0.05f;
 
 		// Calculate the change in mouse position
 		currentInstance->deltaX = static_cast<float>(xpos - currentInstance->lastX) * sensitivity;
@@ -122,21 +123,16 @@ void InputHandler::CursorPositionCallback(GLFWwindow* window, double xpos, doubl
 		currentInstance->lastX = xpos;
 		currentInstance->lastY = ypos;
 
-		std::cout << "DeltaY:" << currentInstance->deltaY << std::endl <<
-		"DeltaX:" << currentInstance->deltaX << std::endl;
-
 		if (currentInstance->deltaY > .1 || currentInstance->deltaY < -0.1)
 		{
 			float rotationAngle = std::atan2(currentInstance->deltaY, currentInstance->deltaX);
 			currentInstance->objectRenderer->SetRotationAngle(rotationAngle);
-			std::cout << "Rotate X" << std::endl;
 			currentInstance->objectRenderer->SetObjectRotation(glm::vec3(1.0f, 0.0f, 0.0f));
 		}
 		else if (currentInstance->deltaX > .1 || currentInstance->deltaX < -0.1)
 		{
 			float rotationAngle = std::atan2(currentInstance->deltaX, currentInstance->deltaY);
 			currentInstance->objectRenderer->SetRotationAngle(rotationAngle);
-			std::cout << "Rotate Y" << std::endl;
 			currentInstance->objectRenderer->SetObjectRotation(glm::vec3(0.0f, 1.0f, 0.0f));
 		}
 	}

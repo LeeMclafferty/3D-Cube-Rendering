@@ -5,11 +5,13 @@
 #include <vector>
 #include "PremadeShapes/ShapeCreator.h"
 
+class Camera;
+
 class ObjectRenderer
 {
 
 public:
-	ObjectRenderer(GLFWwindow* win);
+	ObjectRenderer(GLFWwindow* win, Camera* cam);
 	void SetupPremadeShape();
 	void Draw();
 	GLuint CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
@@ -17,7 +19,7 @@ public:
 
 	glm::vec3 GetObjectScale() { return objectScale; }
 	glm::vec3 GetObjectRotation() { return objectRotation; }
-	glm::vec3 GetObjectTranslation() { return objectTranslation; }
+	glm::vec3 GetObjectTransform() { return objectTranslation; }
 
 	void SetObjectScale(glm::vec3 scale) { objectScale = scale; }
 	void SetObjectRotation(glm::vec3 rot) { objectRotation = rot; }
@@ -31,6 +33,7 @@ public:
 private:
 
 	GLFWwindow* window;
+	Camera* camera;
 	ShapeCreator shapeCreator;
 	float GetAspectRatio();
 	GLuint shaderProgram;

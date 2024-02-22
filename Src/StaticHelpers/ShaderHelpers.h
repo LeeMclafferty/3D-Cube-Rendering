@@ -1,6 +1,7 @@
 #pragma once
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm.hpp>
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -86,5 +87,11 @@ namespace ShaderHelpers
 			return false;
 		}
 		return true;
+	}
+
+	static void SetUniform(GLuint shader, std::string uniformName, glm::mat4 matrix)
+	{
+		GLint modelTransformMatrixUniform = glGetUniformLocation(shader, uniformName.c_str());
+		glUniformMatrix4fv(modelTransformMatrixUniform, 1, GL_FALSE, &matrix[0][0]);
 	}
 }
