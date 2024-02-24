@@ -1,9 +1,10 @@
+
 #include "InputHandler.h"
 #include <iostream>
 #include <cmath>
 #include <glm.hpp>
 #include <matrix_transform.hpp>
-#include "ObjectRenderer.h"
+#include "../ObjectRenderer.h"
 #include "../Camera.h"
 
 /* Static member functions cannot access non-static members. Creating static pointer to self to access members.*/
@@ -14,7 +15,8 @@ InputHandler::InputHandler(GLFWwindow* win, ObjectRenderer* objRenderer, Camera*
 {
 	instance = this;
 	BindCallbackFuncs();
-	sensitivity = 0.5f;
+	meshRotationSensitivity = 0.1f;
+	meshTranslationSensitivity = 0.5f;
 }
 
 void InputHandler::SetInputState(InputState newState)
@@ -38,27 +40,27 @@ void InputHandler::KeyPressCallback(GLFWwindow* win, int key, int scancode, int 
 
 	if (key == GLFW_KEY_W && action == GLFW_PRESS)
 	{
-		//instance->objectRenderer->AddObjectTranslation(glm::vec3(0.f, 0.1f, 0.f));
+		instance->objectRenderer->AddObjectTranslation(glm::vec3(0.f, instance->meshTranslationSensitivity, 0.f));
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{
-		//instance->objectRenderer->AddObjectTranslation(glm::vec3(-0.1f, 0.f, 0.f));
+		instance->objectRenderer->AddObjectTranslation(glm::vec3(-instance->meshTranslationSensitivity, 0.f, 0.f));
 	}
 	else if (key == GLFW_KEY_S && action == GLFW_PRESS)
 	{
-		//instance->objectRenderer->AddObjectTranslation(glm::vec3(0.f, -0.1f, 0.f));
+		instance->objectRenderer->AddObjectTranslation(glm::vec3(0.f, -instance->meshTranslationSensitivity, 0.f));
 	}
 	else if (key == GLFW_KEY_D && action == GLFW_PRESS)
 	{
-		//instance->objectRenderer->AddObjectTranslation(glm::vec3(0.1f, 0.f, 0.f));
+		instance->objectRenderer->AddObjectTranslation(glm::vec3(instance->meshTranslationSensitivity, 0.f, 0.f));
 	}
 	else if (key == GLFW_KEY_Z && action == GLFW_PRESS)
 	{
-		//instance->objectRenderer->AddObjectTranslation(glm::vec3(0.f, 0.f, 0.1f));
+		instance->objectRenderer->AddObjectTranslation(glm::vec3(0.f, 0.f, instance->meshTranslationSensitivity));
 	}
 	else if (key == GLFW_KEY_X && action == GLFW_PRESS)
 	{
-		//instance->objectRenderer->AddObjectTranslation(glm::vec3(0.f, 0.f, -0.1f));
+		instance->objectRenderer->AddObjectTranslation(glm::vec3(0.f, 0.f, -instance->meshTranslationSensitivity));
 	}
 }
 
@@ -69,7 +71,7 @@ void InputHandler::ScrollCallback(GLFWwindow* win, double xoffset, double yoffse
 	if (yoffset != 0)
 	{
 		float scaleAdjustment = (yoffset > 0) ? scaleFactor : -scaleFactor;
-		//instance->objectRenderer->AddObjectScale(glm::vec3(scaleAdjustment));
+		instance->objectRenderer->AddObjectScale(glm::vec3(scaleAdjustment));
 		instance->objectRenderer->SetObjectScale(
 			glm::max(instance->objectRenderer->GetObjectScale(), glm::vec3(0.1f))
 		);
@@ -111,20 +113,21 @@ void InputHandler::RotateMesh(double xpos, double ypos)
 	UpdateLastMousePos(xpos, ypos);
 
 	glm::vec3 up(0.f, 1.f, 0.f);
-	glm::vec3 right = glm::normalize(glm::cross(up, glm::vec3(1.f, 0.f, 0.f)));
+	glm::vec3 right = glm::normalize(glm::cross(up, instance->objectRenderer->GetObjectTranslation()));
 
 	glm::mat4 yawRotation = glm::rotate(
 		glm::mat4(1.f),
-		(float)-instance->deltaX * instance->sensitivity,
+		(float)-instance->deltaX * instance->meshRotationSensitivity,
 		up
 	);
 	glm::mat4 pitchRotation = glm::rotate(
 		glm::mat4(1.f),
-		(float)-instance->deltaY * instance->sensitivity,
+		(float)-instance->deltaY * instance->meshRotationSensitivity,
 		right
 	);
 
 	glm::mat4 rotator = pitchRotation * yawRotation; 
+	instance->objectRenderer->SetObjectRotation(rotator);
 
 	glm::mat4 tranformationMatrix = glm::mat4(1.f);
 	glm::vec3 currentScale = instance->objectRenderer->GetObjectScale();
@@ -151,7 +154,6 @@ void InputHandler::OnLeftMouseButton(int button, int action, int mod)
 	}
 	else if (action == GLFW_RELEASE)
 	{
-
 		SetInputState(instance->previouseState);
 		ResetMouseDeltas();
 	}
@@ -173,8 +175,8 @@ void InputHandler::OnRightMouseButton(int button, int action, int mod)
 
 void InputHandler::SetMouseDeltas(double xpos, double ypos)
 {
-	instance->deltaX = static_cast<float>(xpos - instance->lastX) * instance->sensitivity;
-	instance->deltaY = static_cast<float>(ypos - instance->lastY) * instance->sensitivity;
+	instance->deltaX = static_cast<float>(xpos - instance->lastX) * instance->meshRotationSensitivity;
+	instance->deltaY = static_cast<float>(ypos - instance->lastY) * instance->meshRotationSensitivity;
 	instance->lastX = xpos;
 	instance->lastY = ypos;
 }

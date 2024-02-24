@@ -32,7 +32,8 @@ private:
 	static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
 
 	double lastX, lastY, deltaX, deltaY = 0.0;
-	float sensitivity;
+	float meshRotationSensitivity;
+	float meshTranslationSensitivity;
 
 	static void RotateMesh(double xpos, double ypos);
 	static void SetLastMouseCoordinates();

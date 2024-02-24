@@ -33,12 +33,15 @@
     <ClCompile Include="Src\Core\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\ObjectRenderer.h">
+    <ClInclude Include="Src\Core\ObjectRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\StaticHelpers\ShaderHelpers.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
