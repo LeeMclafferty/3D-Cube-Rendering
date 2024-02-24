@@ -14,6 +14,7 @@ namespace ShaderHelpers
 		std::string fragmentSource;
 	};
 
+	/* All memebers of static class must be static */
 	static ShaderSource ParseShader(const std::string& filePath)
 	{
 
@@ -93,5 +94,48 @@ namespace ShaderHelpers
 	{
 		GLint modelTransformMatrixUniform = glGetUniformLocation(shader, uniformName.c_str());
 		glUniformMatrix4fv(modelTransformMatrixUniform, 1, GL_FALSE, &matrix[0][0]);
+	}
+
+	static unsigned int CompileShader(unsigned int glType, const std::string& source)
+	{
+		GLuint id = glCreateShader(glType);
+		const char* src = source.c_str();
+		glShaderSource(id, 1, &src, nullptr);
+		glCompileShader(id);
+
+		// Error handling
+		int result;
+		glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+		if (!ShaderHelpers::CompiledSuccessfully(result, id, glType))
+		{
+			return 0;
+		}
+
+		return id;
+	}
+
+	static GLuint CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
+	{
+		// Read in Shaders .. Link them .. Compile into single shader program
+		GLuint shaderProgram = glCreateProgram();
+		GLuint vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
+		GLuint fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
+
+		glAttachShader(shaderProgram, vs);
+		glAttachShader(shaderProgram, fs);
+		glLinkProgram(shaderProgram);
+		glValidateProgram(shaderProgram);
+
+		int result;
+		glGetProgramiv(shaderProgram, GL_LINK_STATUS, &result);
+		if (!ShaderHelpers::LinkedSuccessfully(result, shaderProgram))
+		{
+			return 0;
+		}
+
+		glDeleteShader(vs);
+		glDeleteShader(fs);
+
+		return shaderProgram;
 	}
 }

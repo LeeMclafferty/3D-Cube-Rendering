@@ -16,9 +16,12 @@ public:
 	void SetGlobalPosition(glm::vec3 pos) { globalPosition = pos; }
 	void SetCameraTarget(glm::vec3 pos) { cameraTarget = pos; }
 
+	void Rotate(glm::vec2 mouseDeltas);
+
 private:
 
 	glm::vec3 globalPosition;
 	glm::vec3 cameraTarget;
+	float sensitivity;
 };
 

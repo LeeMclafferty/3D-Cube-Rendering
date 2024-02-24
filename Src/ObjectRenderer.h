@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <string>
 #include <vector>
+#include <gtc/quaternion.hpp>
 #include "PremadeShapes/ShapeCreator.h"
 
 class Camera;
@@ -14,21 +15,20 @@ public:
 	ObjectRenderer(GLFWwindow* win, Camera* cam);
 	void SetupPremadeShape();
 	void Draw();
-	GLuint CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
-	unsigned int CompileShader(unsigned int glType, const std::string& source);
+
+	void SetShaderProgram(GLuint programId) { shaderProgram = programId; }
 
 	glm::vec3 GetObjectScale() { return objectScale; }
-	glm::vec3 GetObjectRotation() { return objectRotation; }
-	glm::vec3 GetObjectTransform() { return objectTranslation; }
+	glm::quat GetObjectRotation() { return objectRotation; }
+	glm::vec3 GetObjectTranslation() { return objectTranslation; }
 
 	void SetObjectScale(glm::vec3 scale) { objectScale = scale; }
-	void SetObjectRotation(glm::vec3 rot) { objectRotation = rot; }
+	void SetObjectRotation(glm::quat rotation) { objectRotation = rotation; }
+	void SetObjectTranslation(glm::vec3 translation) { objectTranslation = translation; }
 
-	void AddObjectScale(glm::vec3 scale);
-	void AddObjectRotation(glm::vec3 rot);
-	void AddObjectTranslation(glm::vec3 trans);
+	void TransformObject(const glm::mat4& transformationMatrix);
 
-	void SetRotationAngle(float rot) { rotationAngle += rot; }
+	GLuint GetShaderProgram() const { return shaderProgram; }
 
 private:
 
@@ -39,12 +39,9 @@ private:
 	GLuint shaderProgram;
 	
 	void SendProjectionData(float fov, float aspectRatio, float nearPlane, float farPlane);
-	void TransformObject(glm::vec3 scale, glm::vec3 rotation, float rotationAngle, glm::vec3 translation);
 
 	glm::vec3 objectScale;
-	glm::vec3 objectRotation;
+	glm::quat objectRotation;
 	glm::vec3 objectTranslation;
-
-	float rotationAngle;
 };
 

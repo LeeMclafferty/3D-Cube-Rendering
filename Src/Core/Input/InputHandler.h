@@ -3,25 +3,25 @@
 #include "glm.hpp"
 struct GLFWwindow;
 class ObjectRenderer;
+class Camera;
 
 class InputHandler
 {
-	// Not indexing at 0 to match keyboard inputs
 	enum InputState
 	{
-		scaling = 1,
-		rotating = 2,
-		translating = 3,
-		camera = 4,
-		mouse = 5
+		defaultInput,
+		cameraInput,
+		mouseInput
 	};
 
 public:
-	InputHandler(GLFWwindow* win, ObjectRenderer* objRenderer);
+	InputHandler(GLFWwindow* win, ObjectRenderer* objRenderer, Camera* cam);
+	static void SetInputState(InputState newState);
 
 private:
 	GLFWwindow* window;
 	ObjectRenderer* objectRenderer;
+	Camera* camera;
 	InputState inputState;
 	InputState previouseState;
 	
@@ -32,5 +32,15 @@ private:
 	static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
 
 	double lastX, lastY, deltaX, deltaY = 0.0;
+	float sensitivity;
+
+	static void RotateMesh(double xpos, double ypos);
+	static void SetLastMouseCoordinates();
+	static void OnLeftMouseButton(int button, int action, int mod);
+	static void OnRightMouseButton(int button, int action, int mod);
+
+	static void SetMouseDeltas(double xpos, double ypos);
+	static void UpdateLastMousePos(double x, double y);
+	static void ResetMouseDeltas();
 };
 

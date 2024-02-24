@@ -27,7 +27,7 @@
     <ClCompile Include="Src\PremadeShapes\ShapeCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\InputHandler.cpp">
+    <ClCompile Include="Src\Core\Input\InputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Camera.cpp">
@@ -56,7 +56,7 @@
     <ClInclude Include="Src\PremadeShapes\PremadeShapes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\InputHandler.h">
+    <ClInclude Include="Src\Core\Input\InputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Camera.h">
