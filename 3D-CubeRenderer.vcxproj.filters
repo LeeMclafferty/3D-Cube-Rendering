@@ -24,7 +24,7 @@
     <ClCompile Include="Src\Core\ObjectRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\PremadeShapes\ShapeCreator.cpp">
+    <ClCompile Include="Src\Components\BufferManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Input\InputHandler.cpp">
@@ -33,7 +33,7 @@
     <ClCompile Include="Src\Core\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
+    <ClCompile Include="Src\Object\Object3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +53,7 @@
     <ClInclude Include="Src\Struct\Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\PremadeShapes\ShapeCreator.h">
+    <ClInclude Include="Src\Components\BufferManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\PremadeShapes\PremadeShapes.h">
@@ -65,7 +65,7 @@
     <ClInclude Include="Src\Core\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
+    <ClInclude Include="Src\Object\Object3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

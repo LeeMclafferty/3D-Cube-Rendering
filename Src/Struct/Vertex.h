@@ -19,4 +19,5 @@ struct Vertex
 {
 	glm::vec3 position;
 	Color color;
+	Vertex(glm::vec3 pos, Color col) : position(pos), color(col) {}
 };

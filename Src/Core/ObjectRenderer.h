@@ -4,7 +4,8 @@
 #include <string>
 #include <vector>
 #include <gtc/quaternion.hpp>
-#include "PremadeShapes/ShapeCreator.h"
+#include "../Components/BufferManager.h"
+#include "Object/Object3D.h"
 
 class Camera;
 
@@ -13,7 +14,6 @@ class ObjectRenderer
 
 public:
 	ObjectRenderer(GLFWwindow* win, Camera* cam);
-	void SetupPremadeShape();
 	void Draw();
 
 	void SetShaderProgram(GLuint programId) { shaderProgram = programId; }
@@ -37,7 +37,7 @@ private:
 
 	GLFWwindow* window;
 	Camera* camera;
-	ShapeCreator shapeCreator;
+	Object3D object;
 	float GetAspectRatio();
 	GLuint shaderProgram;
 	

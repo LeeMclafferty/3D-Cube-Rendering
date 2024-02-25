@@ -6,6 +6,8 @@ struct Vertex;
 
 struct ShapeData
 {
-	Vertex* verticies;
-	GLuint* indices;
+	std::vector<Vertex> verticies;
+	std::vector<GLuint> indices;
+	size_t numVertex;
+	size_t numIndices;
 };

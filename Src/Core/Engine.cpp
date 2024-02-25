@@ -22,7 +22,6 @@ void Engine::MainLoop()
 			source.fragmentSource 
 			)
 	);
-	objectRenderer.SetupPremadeShape();
 	camera.SetCameraTarget(objectRenderer.GetObjectTranslation());
 
 	while (!glfwWindowShouldClose(window))

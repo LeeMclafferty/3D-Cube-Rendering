@@ -1,15 +1,14 @@
 #pragma once
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "ShapeData.h"
+#include <vector>
 
-class ShapeCreator
+struct Vertex;
+
+class BufferManager
 {
 public:
-	void CreateCube();
-	void CreateRectangle();
-	void CreateTriangle();
-	void CreateDoubleTriangles();
+	void CreateObject(const std::vector<Vertex> vertices, size_t vertexCount, const std::vector<GLuint> indices, size_t indexCount);
 
 	GLuint GetVAO() { return VAO; }
 	GLuint GetVBO() { return VBO; }
@@ -19,6 +18,5 @@ private:
 	GLuint VAO;
 	GLuint VBO;
 	GLuint EBO;
-	ShapeData premadeShapeData;
 };
 

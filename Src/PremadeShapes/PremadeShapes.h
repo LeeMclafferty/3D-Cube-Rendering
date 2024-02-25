@@ -2,22 +2,23 @@
 
 #include <GL/glew.h>
 #include "ShapeData.h"
+#include <vector>
 
 namespace PremadeShapes
 {
-	Vertex cubeVertices[8] = {
-		// Position							// Color 
-		glm::vec3(-0.5f, -0.5f, -0.5f),		Color(0.6f, 0.3f, 0.0f, 1.0f), // Vertex 0
-		glm::vec3(0.5f, -0.5f, -0.5f),		Color(0.5f, 0.0f, 0.8f, 1.0f), // Vertex 1
-		glm::vec3(0.5f,  0.5f, -0.5f),		Color(0.0f, 0.5f, 0.7f, 1.0f), // Vertex 2
-		glm::vec3(-0.5f,  0.5f, -0.5f),		Color(0.6f, 0.3f, 0.0f, 1.0f), // Vertex 3
-		glm::vec3(-0.5f, -0.5f,  0.5f),		Color(0.5f, 0.0f, 0.8f, 1.0f), // Vertex 4
-		glm::vec3(0.5f, -0.5f,  0.5f),		Color(0.0f, 0.5f, 0.7f, 1.0f), // Vertex 5
-		glm::vec3(0.5f,  0.5f,  0.5f),		Color(0.6f, 0.3f, 0.0f, 1.0f), // Vertex 6
-		glm::vec3(-0.5f,  0.5f,  0.5f),		Color(0.5f, 0.0f, 0.8f, 1.0f), // Vertex 7
+	std::vector<Vertex> cubeVertices { 
+		// Position								// Color 
+		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f),	Color(0.6f, 0.3f, 0.0f, 1.0f)), // Vertex 0
+		Vertex(glm::vec3(0.5f,  -0.5f, -0.5f),	Color(0.5f, 0.0f, 0.8f, 1.0f)), // Vertex 1
+		Vertex(glm::vec3(0.5f,   0.5f, -0.5f),	Color(0.0f, 0.5f, 0.7f, 1.0f)), // Vertex 2
+		Vertex(glm::vec3(-0.5f,  0.5f, -0.5f),	Color(0.6f, 0.3f, 0.0f, 1.0f)), // Vertex 3
+		Vertex(glm::vec3(-0.5f, -0.5f,  0.5f),	Color(0.5f, 0.0f, 0.8f, 1.0f)), // Vertex 4
+		Vertex(glm::vec3(0.5f,  -0.5f,  0.5f),	Color(0.0f, 0.5f, 0.7f, 1.0f)), // Vertex 5
+		Vertex(glm::vec3(0.5f,   0.5f,  0.5f),	Color(0.6f, 0.3f, 0.0f, 1.0f)), // Vertex 6
+		Vertex(glm::vec3(-0.5f,  0.5f,  0.5f),	Color(0.5f, 0.0f, 0.8f, 1.0f)), // Vertex 7
 	};
 
-	GLuint cubeIndices[36] = {
+	std::vector<GLuint> cubeIndices {
 		// Front face
 		0, 1, 2, 
 		0, 2, 3,
@@ -38,12 +39,12 @@ namespace PremadeShapes
 		0, 5, 4
 	};
 
-	Vertex recVertices[28] = {
+	std::vector<Vertex> recVertices {
 		// Position						// Color
-		glm::vec3(+0.5f, -0.5f, 0.0f),  Color(1.0f, 0.0f, 0.0f, 1.0f), // bottom right
-		glm::vec3(+0.5f, +0.5f, 0.0f),  Color(1.0f, 0.0f, 0.0f, 1.0f), // top right
-		glm::vec3(-0.5f, -0.5f, 0.0f),  Color(1.0f, 0.0f, 1.0f, 1.0f), // bottom left
-		glm::vec3(-0.5f, +0.5f, 0.0f),  Color(0.0f, 0.0f, 1.0f, 1.0f), // top left
+		Vertex(glm::vec3(+0.5f, -0.5f, 0.0f),  Color(1.0f, 0.0f, 0.0f, 1.0f)), // bottom right
+		Vertex(glm::vec3(+0.5f, +0.5f, 0.0f),  Color(1.0f, 0.0f, 0.0f, 1.0f)), // top right
+		Vertex(glm::vec3(-0.5f, -0.5f, 0.0f),  Color(1.0f, 0.0f, 1.0f, 1.0f)), // bottom left
+		Vertex(glm::vec3(-0.5f, +0.5f, 0.0f),  Color(0.0f, 0.0f, 1.0f, 1.0f)), // top left
 	};
 
 	GLuint recIndices[6] = {
@@ -51,23 +52,21 @@ namespace PremadeShapes
 	1, 2, 3 // Bottom left tri
 	};
 
-	Vertex doubleTriangleVerticies[42] =
-	{
+	std::vector<Vertex> doubleTriangleVerticies {
 		// Triangle 1
 		// Position						//Color
-		glm::vec3(-1.0, +1.0, -0.5f),  Color(0.0f, 1.0f, 0.8f, 1.0f), // Left
-		glm::vec3(0.0, -1.0, -0.5f),   Color(0.0f, 1.0f, 0.0f, 1.0f), // Bottom
-		glm::vec3(+1.0, +1.0, -0.5f),  Color(0.0f, 1.0f, 0.4f, 1.0f), // Right
+		Vertex(glm::vec3(-1.0, +1.0, -0.5f),  Color(0.0f, 1.0f, 0.8f, 1.0f)), // Left
+		Vertex(glm::vec3(0.0, -1.0, -0.5f),   Color(0.0f, 1.0f, 0.0f, 1.0f)), // Bottom
+		Vertex(glm::vec3(+1.0, +1.0, -0.5f),  Color(0.0f, 1.0f, 0.4f, 1.0f)), // Right
 
 		// Triangle 2
 		// Position		    //Color
-		glm::vec3(0.0, +1.0, -0.9f),  Color(0.8, 0.4, 1.0, 1.0), // Top
-		glm::vec3(-1.0, -1.0, +0.5f), Color(0.7, 0.0, 1.0, 1.0), // Left
-		glm::vec3(+1.0, -1.0, +0.5f), Color(0.5, 0.6, 1.0, 1.0), // Right
+		Vertex(glm::vec3(0.0, +1.0, -0.9f),  Color(0.8f, 0.4f, 1.0f, 1.0f)), // Top
+		Vertex(glm::vec3(-1.0, -1.0, +0.5f), Color(0.7f, 0.0f, 1.0f, 1.0f)), // Left
+		Vertex(glm::vec3(+1.0, -1.0, +0.5f), Color(0.5f, 0.6f, 1.0f, 1.0f)), // Right
 	};
 
-	GLuint doubleTriangleIndicies[6] =
-	{
+	std::vector<GLuint> doubleTriangleIndicies {
 		// Triangle 1
 		0, 1, 2,
 
@@ -75,17 +74,14 @@ namespace PremadeShapes
 		3, 4, 5
 	};
 
-	Vertex triangleVerticies[3] =
-	{
-		// Triangle 2
+	std::vector<Vertex> triangleVerticies {
 		// Position						//Color
-		glm::vec3(0.0, +1.0, +0.5f),  Color(0.1, 0.6, 1.0, 1.0), // Top
-		glm::vec3(-1.0, -1.0, +0.5f),  Color(1.0, 0.0, 0.6, 1.0), // Left
-		glm::vec3(+1.0, -1.0, +0.5f),  Color(0.6, 0.0, 1.0, 1.0), // Right
+		Vertex(glm::vec3(-1.0, -1.0, +0.5f),  Color(1.0f, 0.0f, 0.6f, 1.0f)), // Left
+		Vertex(glm::vec3(0.0, +1.0, +0.5f),   Color(0.1f, 0.6f, 1.0f, 1.0f)), // Top
+		Vertex(glm::vec3(+1.0, -1.0, +0.5f),  Color(0.6f, 0.0f, 1.0f, 1.0f)), // Right
 	};
 
-	GLuint triangleIndicies[3] =
-	{
+	std::vector<GLuint> triangleIndicies {
 		0, 1 ,2,
 	};
 };

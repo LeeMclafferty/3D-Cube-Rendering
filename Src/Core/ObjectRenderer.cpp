@@ -6,24 +6,26 @@
 #include <gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
 
-#include "PremadeShapes/ShapeData.h"
+#include "PremadeShapes/PremadeShapes.h"
 #include "Camera.h"
 
 ObjectRenderer::ObjectRenderer(GLFWwindow* win, Camera* cam)
-	:shapeCreator(ShapeCreator()), shaderProgram(0), window(win), camera(cam),
+	:shaderProgram(0), window(win), camera(cam),
 	objectScale(glm::vec3(1.f)), objectRotation(glm::mat4(1.f)), 
 	objectTranslation(glm::vec3(0.f, 0.f, -1.f))
 {
-}
-
-void ObjectRenderer::SetupPremadeShape()
-{
-	shapeCreator.CreateCube();
+	size_t vertexCount = PremadeShapes::cubeVertices.size();
+	size_t indexCount = PremadeShapes::cubeIndices.size();
+	object.SetShapeData(
+		PremadeShapes::cubeVertices, PremadeShapes::cubeIndices, 
+		vertexCount, indexCount
+	);
+	object.CreateShapeOnGPU();
 }
 
 void ObjectRenderer::Draw() 
 {
-	glBindVertexArray(shapeCreator.GetVAO());
+	glBindVertexArray(object.GetVAO());
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	glm::mat4 tranformationMatrix = glm::mat4(1.f);
@@ -32,7 +34,7 @@ void ObjectRenderer::Draw()
 	tranformationMatrix = glm::translate(tranformationMatrix, objectTranslation);
 	TransformObject(tranformationMatrix);
 
-	SendProjectionData(60.f, GetAspectRatio(), .01, 1000.f);
+	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
 	ShaderHelpers::SetUniform(shaderProgram, "viewMatrix", camera->GetViewMatrix());
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 }
