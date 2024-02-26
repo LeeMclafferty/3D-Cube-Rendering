@@ -94,7 +94,7 @@ void InputHandler::CursorPositionCallback(GLFWwindow* window, double xpos, doubl
 {
 	if (instance->inputState == InputState::mouseInput)
 	{
-		RotateMesh(xpos, ypos);
+		//RotateMesh();
 	}
 	else if (instance->inputState == InputState::cameraInput)
 	{
@@ -105,40 +105,6 @@ void InputHandler::CursorPositionCallback(GLFWwindow* window, double xpos, doubl
 		);
 	}
 }
-
-// TODO: Create and move to a class for manipulation meshes
-void InputHandler::RotateMesh(double xpos, double ypos)
-{
-	SetMouseDeltas(xpos, ypos);
-	UpdateLastMousePos(xpos, ypos);
-
-	glm::vec3 up(0.f, 1.f, 0.f);
-	glm::vec3 right = glm::normalize(glm::cross(up, instance->objectRenderer->GetObjectTranslation()));
-
-	glm::mat4 yawRotation = glm::rotate(
-		glm::mat4(1.f),
-		(float)-instance->deltaX * instance->meshRotationSensitivity,
-		up
-	);
-	glm::mat4 pitchRotation = glm::rotate(
-		glm::mat4(1.f),
-		(float)-instance->deltaY * instance->meshRotationSensitivity,
-		right
-	);
-
-	glm::mat4 rotator = pitchRotation * yawRotation; 
-	instance->objectRenderer->SetObjectRotation(rotator);
-
-	glm::mat4 tranformationMatrix = glm::mat4(1.f);
-	glm::vec3 currentScale = instance->objectRenderer->GetObjectScale();
-	glm::vec3 currentTranslation = instance->objectRenderer->GetObjectTranslation();
-	tranformationMatrix = glm::scale(tranformationMatrix, currentScale);
-	tranformationMatrix *= rotator;
-	tranformationMatrix = glm::translate(tranformationMatrix, currentTranslation);
-
-	instance->objectRenderer->TransformObject(tranformationMatrix);
-}
-
 
 void InputHandler::SetLastMouseCoordinates()
 {
