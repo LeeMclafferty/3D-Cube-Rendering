@@ -13,10 +13,14 @@ public:
 	GLuint GetVAO() { return VAO; }
 	GLuint GetVBO() { return VBO; }
 	GLuint GetEBO() { return EBO; }
+	
+	GLuint GetShaderProgram() { return shaderProgram; }
+	void SetShaderProgram(GLuint program) { shaderProgram = program; }
 
 private:
 	GLuint VAO;
 	GLuint VBO;
 	GLuint EBO;
+	GLuint shaderProgram;
 };
 

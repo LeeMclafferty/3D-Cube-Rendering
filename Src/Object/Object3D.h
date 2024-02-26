@@ -14,8 +14,20 @@ public:
 	Object3D();
 	glm::mat4 GetTransformationMatrix();
 
-	void Scale(glm::vec3 factor) { scale += factor; }
-	void MovePosition(glm::vec3 factor) { position += factor; }
+
+	glm::vec3 GetScale() { return scale; }
+	glm::quat GetRotation() { return rotation; }
+	glm::vec3 GetPosition() { return position; }
+
+	void SetScale(const glm::vec3& inScale) { scale = inScale; }
+	void SetRotation(const glm::quat& inRotation) { rotation = inRotation; }
+	void SetTranslation(const glm::vec3& translation) { position = translation; }
+
+	void AddScale(glm::vec3 inScale) { scale += inScale; }
+	void MovePosition(glm::vec3 translation) { position += translation; }
+
+	void TransformObject(const glm::mat4& transformationMatrix);
+
 	void Rotate(float deltaX, float deltaY);
 
 	glm::quat GetRotation() const { return rotation; }
@@ -26,6 +38,10 @@ public:
 	GLuint GetVAO() { return bufferManager.GetVAO(); }
 	GLuint GetVBO() { return bufferManager.GetVBO(); }
 	GLuint GetEBO() { return bufferManager.GetEBO(); }
+
+	GLuint GetShaderProgram() { return bufferManager.GetShaderProgram(); }
+	void SetShaderProgram(GLuint program) { bufferManager.SetShaderProgram(program); }
+
 
 private:
 	
@@ -46,7 +62,5 @@ private:
 	glm::vec3 objectRightVector;
 
 	void UpdateLocalVectors();
-	void SetRotation(const glm::quat& newRotation) { rotation = newRotation; }
-	
 };
 

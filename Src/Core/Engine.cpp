@@ -22,7 +22,7 @@ void Engine::MainLoop()
 			source.fragmentSource 
 			)
 	);
-	camera.SetCameraTarget(objectRenderer.GetObjectTranslation());
+	camera.SetCameraTarget(objectRenderer.GetObject().GetPosition());
 
 	while (!glfwWindowShouldClose(window))
 	{

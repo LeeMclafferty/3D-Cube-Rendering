@@ -4,6 +4,7 @@
 struct GLFWwindow;
 class ObjectRenderer;
 class Camera;
+class Object3D;
 
 class InputHandler
 {
@@ -21,6 +22,7 @@ public:
 private:
 	GLFWwindow* window;
 	ObjectRenderer* objectRenderer;
+	Object3D* object;
 	Camera* camera;
 	InputState inputState;
 	InputState previouseState;
@@ -35,7 +37,6 @@ private:
 	float meshRotationSensitivity;
 	float meshTranslationSensitivity;
 
-	static void RotateMesh(double xpos, double ypos);
 	static void SetLastMouseCoordinates();
 	static void OnLeftMouseButton(int button, int action, int mod);
 	static void OnRightMouseButton(int button, int action, int mod);

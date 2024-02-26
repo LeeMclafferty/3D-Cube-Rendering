@@ -16,21 +16,10 @@ public:
 	ObjectRenderer(GLFWwindow* win, Camera* cam);
 	void Draw();
 
-	void SetShaderProgram(GLuint programId) { shaderProgram = programId; }
+	Object3D GetObject() const { return object; }
+	Object3D& GetObjectRef() { return object; }
 
-	glm::vec3 GetObjectScale() { return objectScale; }
-	glm::mat4 GetObjectRotation() { return objectRotation; }
-	glm::vec3 GetObjectTranslation() { return objectTranslation; }
-
-	void SetObjectScale(glm::vec3 scale) { objectScale = scale; }
-	void SetObjectRotation(glm::mat4 rotation) { objectRotation = rotation; }
-	void SetObjectTranslation(glm::vec3 translation) { objectTranslation = translation; }
-
-	void AddObjectScale(glm::vec3 scale) { objectScale += scale; }
-	void AddObjectTranslation(glm::vec3 translation) { objectTranslation += translation; }
-	
-	void TransformObject(const glm::mat4& transformationMatrix);
-
+	void SetShaderProgram(GLuint programId);
 	GLuint GetShaderProgram() const { return shaderProgram; }
 
 private:
@@ -42,9 +31,5 @@ private:
 	GLuint shaderProgram;
 	
 	void SendProjectionData(float fov, float aspectRatio, float nearPlane, float farPlane);
-
-	glm::vec3 objectScale;
-	glm::mat4 objectRotation;
-	glm::vec3 objectTranslation;
 };
 

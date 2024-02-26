@@ -10,9 +10,7 @@
 #include "Camera.h"
 
 ObjectRenderer::ObjectRenderer(GLFWwindow* win, Camera* cam)
-	:shaderProgram(0), window(win), camera(cam),
-	objectScale(glm::vec3(1.f)), objectRotation(glm::mat4(1.f)), 
-	objectTranslation(glm::vec3(0.f, 0.f, -1.f))
+	:shaderProgram(0), window(win), camera(cam)
 {
 	size_t vertexCount = PremadeShapes::cubeVertices.size();
 	size_t indexCount = PremadeShapes::cubeIndices.size();
@@ -21,6 +19,7 @@ ObjectRenderer::ObjectRenderer(GLFWwindow* win, Camera* cam)
 		vertexCount, indexCount
 	);
 	object.CreateShapeOnGPU();
+	object.SetShaderProgram(shaderProgram);
 }
 
 void ObjectRenderer::Draw() 
@@ -29,14 +28,20 @@ void ObjectRenderer::Draw()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	glm::mat4 tranformationMatrix = glm::mat4(1.f);
-	tranformationMatrix = glm::scale(tranformationMatrix, objectScale);
-	tranformationMatrix *= objectRotation;
-	tranformationMatrix = glm::translate(tranformationMatrix, objectTranslation);
-	TransformObject(tranformationMatrix);
+	tranformationMatrix = glm::scale(tranformationMatrix, object.GetScale());
+	tranformationMatrix *= glm::mat4_cast(object.GetRotation());
+	tranformationMatrix = glm::translate(tranformationMatrix, object.GetPosition());
+	object.TransformObject(tranformationMatrix);
 
 	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
 	ShaderHelpers::SetUniform(shaderProgram, "viewMatrix", camera->GetViewMatrix());
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+}
+
+void ObjectRenderer::SetShaderProgram(GLuint programId)
+{
+	object.SetShaderProgram(programId);
+	shaderProgram = programId;
 }
 
 float ObjectRenderer::GetAspectRatio()
@@ -54,16 +59,3 @@ void ObjectRenderer::SendProjectionData(float fov, float aspectRatio, float near
 	glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
 	ShaderHelpers::SetUniform(shaderProgram, "projectionMatrix", projectionMatrix);
 }
-
-void ObjectRenderer::TransformObject(const glm::mat4& transformationMatrix)
-{
-	glm::mat4 currentTransform = glm::mat4(1.f);
-	currentTransform = glm::scale(currentTransform, GetObjectScale());
-	//currentTransform *= GetObjectRotation();
-	currentTransform = glm::translate(currentTransform, GetObjectTranslation());
-
-	currentTransform *= transformationMatrix;
-
-	ShaderHelpers::SetUniform(shaderProgram, "modelTransformMatrix", currentTransform);
-}
-
