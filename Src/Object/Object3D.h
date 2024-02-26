@@ -14,21 +14,25 @@ public:
 	Object3D();
 	glm::mat4 GetTransformationMatrix();
 
+	// TESTING
+	glm::quat testRotationQuat;
 
 	glm::vec3 GetScale() { return scale; }
 	glm::quat GetRotation() { return rotation; }
 	glm::vec3 GetPosition() { return position; }
 
+	// Direct Setters
 	void SetScale(const glm::vec3& inScale) { scale = inScale; }
 	void SetRotation(const glm::quat& inRotation) { rotation = inRotation; }
 	void SetTranslation(const glm::vec3& translation) { position = translation; }
 
+	// Additive to current transforms
 	void AddScale(glm::vec3 inScale) { scale += inScale; }
 	void MovePosition(glm::vec3 translation) { position += translation; }
+	void AddRotation(glm::quat inRotation) { rotation = inRotation * rotation; }
 
-	void TransformObject(const glm::mat4& transformationMatrix);
-
-	void Rotate(float deltaX, float deltaY);
+	void TransformObject();
+	void Rotate(glm::vec2 deltas);
 
 	glm::quat GetRotation() const { return rotation; }
 
@@ -42,6 +46,7 @@ public:
 	GLuint GetShaderProgram() { return bufferManager.GetShaderProgram(); }
 	void SetShaderProgram(GLuint program) { bufferManager.SetShaderProgram(program); }
 
+	void UpdateLocalVectors();
 
 private:
 	
@@ -61,6 +66,5 @@ private:
 	glm::vec3 objectForwardVector;
 	glm::vec3 objectRightVector;
 
-	void UpdateLocalVectors();
 };
 

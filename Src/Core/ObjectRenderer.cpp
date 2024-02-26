@@ -27,11 +27,7 @@ void ObjectRenderer::Draw()
 	glBindVertexArray(object.GetVAO());
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	glm::mat4 tranformationMatrix = glm::mat4(1.f);
-	tranformationMatrix = glm::scale(tranformationMatrix, object.GetScale());
-	tranformationMatrix *= glm::mat4_cast(object.GetRotation());
-	tranformationMatrix = glm::translate(tranformationMatrix, object.GetPosition());
-	object.TransformObject(tranformationMatrix);
+	object.TransformObject();
 
 	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
 	ShaderHelpers::SetUniform(shaderProgram, "viewMatrix", camera->GetViewMatrix());

@@ -9,15 +9,16 @@ Object3D::Object3D()
 	bufferManager(BufferManager()),
 	scale(glm::vec3(1.0f, 1.0f, 1.0f)),
 	rotation(glm::quat(1.0f, 0.0f, 0.0f, 0.0f)),
-	position(glm::vec3(0.0f, 0.0f, -1.f)),
+	position(glm::vec3(0.0f, 0.0f, -3.f)),
 	worldForward(glm::vec3(0.f, 0.f, -1.f)),
 	worldUp(glm::vec3(0.f, 1.f, 0.f)),
 	worldRight(glm::vec3(1.f, 0.f, 0.f)),
 	objectUpVector(glm::vec3(0.f, 1.f, 0.f)),
-	objectForwardVector(0.f, 0.f, -1.f),
-	objectRightVector(1.f, 0.f, 0.f)
+	objectForwardVector(glm::vec3(0.f, 0.f, -1)),
+	objectRightVector(glm::vec3(1.f, 0.f, 0.f))
 {
-
+	glm::vec3 rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f); // Y-axis
+	testRotationQuat = glm::angleAxis(glm::radians(45.0f), rotationAxis);
 }
 
 void Object3D::SetShapeData(std::vector<Vertex> verticies, std::vector<GLuint> indicies, size_t vertexCount, size_t indexCount)
@@ -38,46 +39,52 @@ void Object3D::CreateShapeOnGPU()
 	);
 }
 
-glm::mat4 Object3D::GetTransformationMatrix()
-{
-	glm::mat4 posMatrix = glm::translate(glm::mat4(1.0f), position);
-	glm::mat4 rotMatrix = glm::mat4_cast(rotation);
+glm::mat4 Object3D::GetTransformationMatrix() {
 	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
+	glm::mat4 rotMatrix = glm::mat4_cast(rotation);
+	glm::mat4 posMatrix = glm::translate(glm::mat4(1.0f), position);
 
-	return scaleMatrix * rotMatrix * posMatrix;
+	// The correct order: translate * rotate * scale
+	return posMatrix * rotMatrix * scaleMatrix;
 }
 
-void Object3D::TransformObject(const glm::mat4& transformationMatrix)
+
+void Object3D::TransformObject() 
 {
-	glm::mat4 currentTransform = glm::mat4(1.f);
-	currentTransform = glm::scale(currentTransform, scale);
-	//currentTransform *= GetObjectRotation();
-	currentTransform = glm::translate(currentTransform, position);
-
-	currentTransform *= transformationMatrix;
-
-	ShaderHelpers::SetUniform(bufferManager.GetShaderProgram(), "modelTransformMatrix", currentTransform);
+	glm::mat4 transformationMatrix = GetTransformationMatrix();
+	ShaderHelpers::SetUniform(bufferManager.GetShaderProgram(), "modelTransformMatrix", transformationMatrix);
 }
 
-void Object3D::Rotate(float deltaX, float deltaY)
-{
-  	float sensitivity = 0.005f;
-	float yawAngle = deltaX * sensitivity;
-	float pitchAngle = deltaY * sensitivity;
 
-	glm::quat yawRotation = glm::angleAxis(yawAngle, objectUpVector);
-	glm::quat pitchRotation = glm::angleAxis(pitchAngle, objectRightVector);
+/*
+	Pitch - rotate around x
+	Yaw - rotate around y
+	Roll - rotate around z
+*/
+void Object3D::Rotate(glm::vec2 deltas)
+{
+	float sensitivity = 5.f;
+	float yawAngle = deltas.x * sensitivity;
+	float pitchAngle = deltas.y * sensitivity;
+
+	glm::quat yawRotation = glm::angleAxis(glm::radians(yawAngle), worldUp);
+	glm::quat pitchRotation = glm::angleAxis(glm::radians(pitchAngle), worldRight);
 
 	glm::quat currentRotation = GetRotation();
-	currentRotation = currentRotation * pitchRotation * yawRotation;
+	currentRotation = yawRotation * currentRotation * pitchRotation;
 
-	SetRotation(currentRotation);
+	SetRotation(glm::normalize(currentRotation));
+
+	TransformObject();
 	UpdateLocalVectors();
 }
 
-void Object3D::UpdateLocalVectors()
+
+void Object3D::UpdateLocalVectors() 
 {
 	objectForwardVector = rotation * glm::vec3(0.0, 0.0, -1.0);
 	objectUpVector = rotation * glm::vec3(0.0, 1.0, 0.0);
 	objectRightVector = rotation * glm::vec3(1.0, 0.0, 0.0);
+
 }
+

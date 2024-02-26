@@ -100,7 +100,8 @@ void InputHandler::CursorPositionCallback(GLFWwindow* window, double xpos, doubl
 {
 	if (instance->inputState == InputState::mouseInput)
 	{
-		
+		SetMouseDeltas(xpos, ypos);
+		instance->object->Rotate(glm::vec2(instance->deltaX, instance->deltaY));
 	}
 	else if (instance->inputState == InputState::cameraInput)
 	{
@@ -128,6 +129,7 @@ void InputHandler::OnLeftMouseButton(int button, int action, int mod)
 	{
 		SetInputState(instance->previouseState);
 		ResetMouseDeltas();
+		instance->object->UpdateLocalVectors();
 	}
 }
 
