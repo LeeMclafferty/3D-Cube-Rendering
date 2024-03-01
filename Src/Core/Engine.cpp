@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "StaticHelpers/ShaderHelpers.h"
-
+#include "../Time/TimeManager.h"
 
 Engine::Engine(GLFWwindow* glWin)
 	:window(glWin), objectRenderer(ObjectRenderer(glWin, &camera)), 
@@ -25,11 +25,12 @@ void Engine::MainLoop()
 
 	while (!glfwWindowShouldClose(window))
 	{
-		std::cout << inputHandler.GetInputState() << std::endl;
+		std::cout << TimeManager::GetDeltaTime() << std::endl;
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(objectRenderer.GetShaderProgram());
 		objectRenderer.Draw();
+		TimeManager::UpdateDeltatime();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

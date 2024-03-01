@@ -4,9 +4,12 @@
 #include <gtc/quaternion.hpp>
 #include <GLFW/glfw3.h>
 
+#include "../Time/TimeManager.h"
+
 Camera::Camera()
 	: globalPosition(glm::vec3(0.0f, 0.0f, 3.0f)),
-	sensitivity(1.f),
+	lookSensitivity(1.f),
+	moveSensitivity(5.f),
 	cameraSpeed(0.1f), 
 	forwardVector(glm::vec3(0.0f, 0.0f, -1.0f)), 
 	upVector(glm::vec3(0.0f, 1.0f, 0.0f)) 
@@ -43,22 +46,21 @@ void Camera::Rotate(glm::vec2 mouseDeltas)
 	glm::vec3 right = GetCameraRight();
 
 	// Convert mouse deltas to radians and apply sensitivity
-	float yawRadians = glm::radians(mouseDeltas.x * sensitivity);
-	float pitchRadians = glm::radians(-mouseDeltas.y * sensitivity); // Inverted Y for intuitive control
+	float yawRadians = glm::radians(mouseDeltas.x * lookSensitivity);
+	float pitchRadians = glm::radians(-mouseDeltas.y * lookSensitivity);
 
 	// Generate rotation matrices for yaw and pitch
 	glm::mat4 yawMatrix = glm::rotate(glm::mat4(1.0f), yawRadians, up);
 	glm::mat4 pitchMatrix = glm::rotate(glm::mat4(1.0f), pitchRadians, right);
 
-	// Apply the rotations to the forward vector
+	// Update local vectors
 	forwardVector = glm::vec3(yawMatrix * pitchMatrix * glm::vec4(forwardVector, 0.0f));
-
-	// Optionally, update the up vector if needed
 	upVector = glm::vec3(yawMatrix * pitchMatrix * glm::vec4(upVector, 0.0f));
 }
 
 void Camera::Move(int key) 
 {
+	cameraSpeed = moveSensitivity * TimeManager::GetDeltaTime();
 	if (key == GLFW_KEY_W) 
 	{
 		globalPosition += cameraSpeed * forwardVector;

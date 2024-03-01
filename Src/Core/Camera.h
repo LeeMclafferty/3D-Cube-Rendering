@@ -21,7 +21,8 @@ public:
 private:
 
 	glm::vec3 globalPosition;
-	float sensitivity;
+	float lookSensitivity;
+	float moveSensitivity;
 	float cameraSpeed;
 
 	glm::vec3 forwardVector;

@@ -166,6 +166,7 @@
     <ClCompile Include="Src\3D-CubeRenderer.cpp" />
     <ClCompile Include="Src\Core\ObjectRenderer.cpp" />
     <ClCompile Include="Src\Core\Engine.cpp" />
+    <ClCompile Include="Src\Time\TimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Object\Object3D.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Src\Core\Engine.h" />
     <ClInclude Include="Src\StaticHelpers\ShaderHelpers.h" />
     <ClInclude Include="Src\Struct\Vertex.h" />
+    <ClInclude Include="Src\Time\TimeManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic.shader" />
