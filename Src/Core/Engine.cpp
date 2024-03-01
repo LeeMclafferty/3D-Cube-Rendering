@@ -22,10 +22,10 @@ void Engine::MainLoop()
 			source.fragmentSource 
 			)
 	);
-	camera.SetCameraTarget(objectRenderer.GetObject().GetPosition());
 
 	while (!glfwWindowShouldClose(window))
 	{
+		std::cout << inputHandler.GetInputState() << std::endl;
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(objectRenderer.GetShaderProgram());

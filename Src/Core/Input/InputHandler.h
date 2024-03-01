@@ -17,6 +17,9 @@ class InputHandler
 
 public:
 	InputHandler(GLFWwindow* win, ObjectRenderer* objRenderer, Camera* cam);
+
+	InputState GetInputState() const { return inputState; }
+
 	static void SetInputState(InputState newState);
 
 private:
@@ -44,5 +47,8 @@ private:
 	static void SetMouseDeltas(double xpos, double ypos);
 	static void UpdateLastMousePos(double x, double y);
 	static void ResetMouseDeltas();
+
+	static void ObjectTransformKeyboardEvents(GLFWwindow* win, int key, int scancode, int action, int mods);
+	static void CameraTransformKeyboardEvents(GLFWwindow* win, int key, int scancode, int action, int mods);
 };
 

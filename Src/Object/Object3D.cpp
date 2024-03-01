@@ -39,12 +39,12 @@ void Object3D::CreateShapeOnGPU()
 	);
 }
 
-glm::mat4 Object3D::GetTransformationMatrix() {
+glm::mat4 Object3D::GetTransformationMatrix() 
+{
 	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
 	glm::mat4 rotMatrix = glm::mat4_cast(rotation);
 	glm::mat4 posMatrix = glm::translate(glm::mat4(1.0f), position);
 
-	// The correct order: translate * rotate * scale
 	return posMatrix * rotMatrix * scaleMatrix;
 }
 
@@ -54,7 +54,6 @@ void Object3D::TransformObject()
 	glm::mat4 transformationMatrix = GetTransformationMatrix();
 	ShaderHelpers::SetUniform(bufferManager.GetShaderProgram(), "modelTransformMatrix", transformationMatrix);
 }
-
 
 /*
 	Pitch - rotate around x
@@ -85,6 +84,5 @@ void Object3D::UpdateLocalVectors()
 	objectForwardVector = rotation * glm::vec3(0.0, 0.0, -1.0);
 	objectUpVector = rotation * glm::vec3(0.0, 1.0, 0.0);
 	objectRightVector = rotation * glm::vec3(1.0, 0.0, 0.0);
-
 }
 

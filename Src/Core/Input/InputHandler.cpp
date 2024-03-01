@@ -39,31 +39,13 @@ void InputHandler::BindCallbackFuncs()
 
 void InputHandler::KeyPressCallback(GLFWwindow* win, int key, int scancode, int action, int mods)
 {
-	if (!instance) return;
-
-	if (key == GLFW_KEY_W && action == GLFW_PRESS)
+	if (instance->inputState == InputState::cameraInput)
 	{
-		instance->object->MovePosition(glm::vec3(0.f, instance->meshTranslationSensitivity, 0.f));
+		CameraTransformKeyboardEvents(win, key, scancode, action, mods);
 	}
-	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	else
 	{
-		instance->object->MovePosition(glm::vec3(-instance->meshTranslationSensitivity, 0.f, 0.f));
-	}
-	else if (key == GLFW_KEY_S && action == GLFW_PRESS)
-	{
-		instance->object->MovePosition(glm::vec3(0.f, -instance->meshTranslationSensitivity, 0.f));
-	}
-	else if (key == GLFW_KEY_D && action == GLFW_PRESS)
-	{
-		instance->object->MovePosition(glm::vec3(instance->meshTranslationSensitivity, 0.f, 0.f));
-	}
-	else if (key == GLFW_KEY_Z && action == GLFW_PRESS)
-	{
-		instance->object->MovePosition(glm::vec3(0.f, 0.f, instance->meshTranslationSensitivity));
-	}
-	else if (key == GLFW_KEY_X && action == GLFW_PRESS)
-	{
-		instance->object->MovePosition(glm::vec3(0.f, 0.f, -instance->meshTranslationSensitivity));
+		ObjectTransformKeyboardEvents(win, key, scancode, action, mods);
 	}
 }
 
@@ -165,5 +147,41 @@ void InputHandler::ResetMouseDeltas()
 {
 	instance->deltaX = 0.0;
 	instance->deltaY = 0.0;
+}
+
+void InputHandler::ObjectTransformKeyboardEvents(GLFWwindow* win, int key, int scancode, int action, int mods)
+{
+	if (!instance) return;
+
+	if (key == GLFW_KEY_W && action == GLFW_PRESS)
+	{
+		instance->object->MovePosition(glm::vec3(0.f, instance->meshTranslationSensitivity, 0.f));
+	}
+	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	{
+		instance->object->MovePosition(glm::vec3(-instance->meshTranslationSensitivity, 0.f, 0.f));
+	}
+	else if (key == GLFW_KEY_S && action == GLFW_PRESS)
+	{
+		instance->object->MovePosition(glm::vec3(0.f, -instance->meshTranslationSensitivity, 0.f));
+	}
+	else if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	{
+		instance->object->MovePosition(glm::vec3(instance->meshTranslationSensitivity, 0.f, 0.f));
+	}
+	else if (key == GLFW_KEY_Z && action == GLFW_PRESS)
+	{
+		instance->object->MovePosition(glm::vec3(0.f, 0.f, instance->meshTranslationSensitivity));
+	}
+	else if (key == GLFW_KEY_X && action == GLFW_PRESS)
+	{
+		instance->object->MovePosition(glm::vec3(0.f, 0.f, -instance->meshTranslationSensitivity));
+	}
+}
+
+void InputHandler::CameraTransformKeyboardEvents(GLFWwindow* win, int key, int scancode, int action, int mods)
+{
+	if (!instance) return;
+	instance->camera->Move(key);
 }
 
