@@ -3,7 +3,7 @@
 #include <glm.hpp>
 #include <gtc/quaternion.hpp>
 #include <vector>
-#include "../Components/BufferManager.h"
+#include "Object/Components/BufferManager.h"
 #include "PremadeShapes/ShapeData.h"
 
 struct Vertex;

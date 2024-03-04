@@ -1,6 +1,6 @@
 #include <iostream>
 #include "BufferManager.h"
-#include "Struct/Vertex.h"
+#include "Vertex/Vertex.h"
 
 
 void BufferManager::CreateObject(const std::vector<Vertex> vertices, size_t vertexCount, const std::vector<GLuint> indices, size_t indexCount)
