@@ -91,7 +91,7 @@ namespace ShaderHelpers
 		return true;
 	}
 
-	static void SetUniform(GLuint shader, std::string uniformName, glm::mat4 matrix)
+	static void SetUniformMatrix(GLuint shader, std::string uniformName, glm::mat4 matrix)
 	{
 		GLint modelTransformMatrixUniform = glGetUniformLocation(shader, uniformName.c_str());
 		glUniformMatrix4fv(modelTransformMatrixUniform, 1, GL_FALSE, &matrix[0][0]);

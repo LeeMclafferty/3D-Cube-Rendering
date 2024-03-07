@@ -30,7 +30,9 @@ void ObjectRenderer::Draw()
 	object.TransformObject();
 
 	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
-	ShaderHelpers::SetUniform(shaderProgram, "viewMatrix", camera->GetViewMatrix());
+	ShaderHelpers::SetUniformMatrix(shaderProgram, "viewMatrix", camera->GetViewMatrix());
+	GLint textureUniformLocation = glGetUniformLocation(shaderProgram, "textureImg");
+	glUniform1i(textureUniformLocation, 0);
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 }
 
@@ -53,5 +55,5 @@ float ObjectRenderer::GetAspectRatio()
 void ObjectRenderer::SendProjectionData(float fov, float aspectRatio, float nearPlane, float farPlane)
 {
 	glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
-	ShaderHelpers::SetUniform(shaderProgram, "projectionMatrix", projectionMatrix);
+	ShaderHelpers::SetUniformMatrix(shaderProgram, "projectionMatrix", projectionMatrix);
 }

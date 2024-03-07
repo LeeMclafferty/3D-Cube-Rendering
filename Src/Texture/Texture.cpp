@@ -6,9 +6,9 @@
 #include "stb_image/stb_image.h"
 
 Texture::Texture()
- :width(0), height(0), nrChannels(GL_RGBA), tData(nullptr), bufferId(NULL)
+ :width(0), height(0), nrChannels(3), tData(nullptr), bufferId(NULL)
 {
-	GenTexture("D:\\Dev\\LocalRepos\\3D-CubeRenderer\\Resources\\Textures\\T_Stone.png");
+	GenTexture("D:\\Dev\\LocalRepos\\3D-CubeRenderer\\Resources\\Textures\\T_Wood.png");
 }
 
 void Texture::GenTexture(const char* path)
@@ -16,24 +16,28 @@ void Texture::GenTexture(const char* path)
 	glGenTextures(1, &bufferId);
 	glBindTexture(GL_TEXTURE_2D, bufferId);
 
-	/* 
-	* S & T are the texture equivalent of X & Y in 2D space.
-	* Mip maps is for changing texture resolution with distance
-	*/
+	// Set texture wrapping and filtering options
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	tData = stbi_load(path, &width, &height, &nrChannels, 0);
-
-	// Send Data to GPU
 	if (tData)
 	{
-		glTexImage2D(
-			GL_TEXTURE_2D, 0, nrChannels, width, height, 
-			0, nrChannels, GL_UNSIGNED_BYTE, tData
-		);
+		GLenum format;
+		if (nrChannels == 1)
+			format = GL_RED;
+		else if (nrChannels == 3)
+			format = GL_RGB;
+		else if (nrChannels == 4)
+			format = GL_RGBA;
+
+		// have to set GL_UNPACK_ALIGNMENT to 1 since the images only have 3 color channels. 
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, tData);
+		glGenerateMipmap(GL_TEXTURE_2D);
+
 		std::cout << "Succeeded to load texture" << std::endl;
 	}
 	else
@@ -43,3 +47,4 @@ void Texture::GenTexture(const char* path)
 
 	stbi_image_free(tData);
 }
+
