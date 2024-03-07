@@ -4,6 +4,7 @@
 
 #include "StaticHelpers/ShaderHelpers.h"
 #include "../Time/TimeManager.h"
+#include "Texture/Texture.h"
 
 Engine::Engine(GLFWwindow* glWin)
 	:window(glWin), objectRenderer(ObjectRenderer(glWin, &camera)), 
@@ -23,9 +24,10 @@ void Engine::MainLoop()
 			)
 	);
 
+	Texture tex;
+
 	while (!glfwWindowShouldClose(window))
 	{
-		std::cout << TimeManager::GetDeltaTime() << std::endl;
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(objectRenderer.GetShaderProgram());

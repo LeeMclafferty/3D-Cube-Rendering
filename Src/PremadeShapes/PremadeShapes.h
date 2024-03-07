@@ -6,37 +6,58 @@
 
 namespace PremadeShapes
 {
-	std::vector<Vertex> cubeVertices { 
-		// Position								// Color 
-		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f),	Color(0.6f, 0.3f, 0.0f, 1.0f)), // Vertex 0
-		Vertex(glm::vec3(0.5f,  -0.5f, -0.5f),	Color(0.5f, 0.0f, 0.8f, 1.0f)), // Vertex 1
-		Vertex(glm::vec3(0.5f,   0.5f, -0.5f),	Color(0.0f, 0.5f, 0.7f, 1.0f)), // Vertex 2
-		Vertex(glm::vec3(-0.5f,  0.5f, -0.5f),	Color(0.6f, 0.3f, 0.0f, 1.0f)), // Vertex 3
-		Vertex(glm::vec3(-0.5f, -0.5f,  0.5f),	Color(0.5f, 0.0f, 0.8f, 1.0f)), // Vertex 4
-		Vertex(glm::vec3(0.5f,  -0.5f,  0.5f),	Color(0.0f, 0.5f, 0.7f, 1.0f)), // Vertex 5
-		Vertex(glm::vec3(0.5f,   0.5f,  0.5f),	Color(0.6f, 0.3f, 0.0f, 1.0f)), // Vertex 6
-		Vertex(glm::vec3(-0.5f,  0.5f,  0.5f),	Color(0.5f, 0.0f, 0.8f, 1.0f)), // Vertex 7
+	std::vector<Vertex> cubeVertices = {
+		// Front face
+		Vertex(glm::vec3(-0.5f, -0.5f,  0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
+		Vertex(glm::vec3(0.5f, -0.5f,  0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),
+		Vertex(glm::vec3(0.5f,  0.5f,  0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
+		Vertex(glm::vec3(-0.5f,  0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)),
+
+		// Right face
+		Vertex(glm::vec3(0.5f, -0.5f,  0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
+		Vertex(glm::vec3(0.5f, -0.5f, -0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),
+		Vertex(glm::vec3(0.5f,  0.5f, -0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
+		Vertex(glm::vec3(0.5f,  0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)),
+
+		// Back face
+		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
+		Vertex(glm::vec3(0.5f, -0.5f, -0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),
+		Vertex(glm::vec3(0.5f,  0.5f, -0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
+		Vertex(glm::vec3(-0.5f,  0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)),
+
+		// Left face
+		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f, -0.5f,  0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f, 0.5f,  0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
+		Vertex(glm::vec3(-0.5f, 0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)),
+
+		// Top face
+		Vertex(glm::vec3(-0.5f, 0.5f, -0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
+		Vertex(glm::vec3(0.5f, 0.5f, -0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),
+		Vertex(glm::vec3(0.5f, 0.5f, 0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
+		Vertex(glm::vec3(-0.5f, 0.5f, 0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)),
+
+		// Bottom face
+		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
+		Vertex(glm::vec3(0.5f, -0.5f, -0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),
+		Vertex(glm::vec3(0.5f, -0.5f, 0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
+		Vertex(glm::vec3(-0.5f, -0.5f, 0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f))
+
 	};
 
-	std::vector<GLuint> cubeIndices {
+	std::vector<unsigned int> cubeIndices = {
 		// Front face
-		0, 1, 2, 
-		0, 2, 3,
-		// Back face
-		4, 5, 6, 
-		4, 6, 7,
-		// Left face
-		0, 3, 7, 
-		0, 7, 4,
+		0, 1, 2, 2, 3, 0,
 		// Right face
-		1, 2, 6, 
-		1, 6, 5,
+		4, 5, 6, 6, 7, 4,
+		// Back face
+		8, 9, 10, 10, 11, 8,
+		// Left face
+		12, 13, 14, 14, 15, 12,
 		// Top face
-		3, 2, 6, 
-		3, 6, 7,
+		16, 17, 18, 18, 19, 16,
 		// Bottom face
-		0, 1, 5, 
-		0, 5, 4
+		20, 21, 22, 22, 23, 20
 	};
 
 	std::vector<Vertex> recVertices {

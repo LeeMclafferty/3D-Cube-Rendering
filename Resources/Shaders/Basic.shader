@@ -2,27 +2,35 @@
 #version 330 core
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec4 color;
+layout (location = 2) in vec2 aTexCoord;
+
 
 uniform mat4 modelTransformMatrix; // Model to world
 uniform mat4 viewMatrix; // World to view
 uniform mat4 projectionMatrix; // View to projection
 
 out vec4 vertexColor;
-
+out vec2 texCoord;
 void main()
 {
     vec4 worldPos = modelTransformMatrix * vec4(aPos, 1.0);
     gl_Position = projectionMatrix * viewMatrix * worldPos;
     vertexColor = color;
+    texCoord = aTexCoord;
 }
 
 
 #shader fragment
 #version 330 core
-out vec4 FragColor;
 in vec4 vertexColor;
+in vec2 texCoord;
+
+uniform sampler2D textureImg;
+
+out vec4 FragColor;
 
 void main()
 {
-	FragColor = vertexColor;
+	FragColor = texture(textureImg, texCoord);
+    //FragColor = vertexColor;
 };

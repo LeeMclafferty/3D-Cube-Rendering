@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <gtc/quaternion.hpp>
-#include "../Components/BufferManager.h"
+#include "Object/Components/BufferManager.h"
 #include "Object/Object3D.h"
 
 class Camera;

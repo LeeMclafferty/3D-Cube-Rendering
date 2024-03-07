@@ -15,7 +15,8 @@ Object3D::Object3D()
 	worldRight(glm::vec3(1.f, 0.f, 0.f)),
 	objectUpVector(glm::vec3(0.f, 1.f, 0.f)),
 	objectForwardVector(glm::vec3(0.f, 0.f, -1)),
-	objectRightVector(glm::vec3(1.f, 0.f, 0.f))
+	objectRightVector(glm::vec3(1.f, 0.f, 0.f)),
+	texture(Texture())
 {
 	glm::vec3 rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f); // Y-axis
 	testRotationQuat = glm::angleAxis(glm::radians(45.0f), rotationAxis);
@@ -52,7 +53,7 @@ glm::mat4 Object3D::GetTransformationMatrix()
 void Object3D::TransformObject() 
 {
 	glm::mat4 transformationMatrix = GetTransformationMatrix();
-	ShaderHelpers::SetUniform(bufferManager.GetShaderProgram(), "modelTransformMatrix", transformationMatrix);
+	ShaderHelpers::SetUniformMatrix(bufferManager.GetShaderProgram(), "modelTransformMatrix", transformationMatrix);
 }
 
 /*
