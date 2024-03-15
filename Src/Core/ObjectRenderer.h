@@ -6,6 +6,7 @@
 #include <gtc/quaternion.hpp>
 #include "Object/Components/BufferManager.h"
 #include "Object/Object3D.h"
+#include "Object/LightSource/LightSource.h"
 
 class Camera;
 
@@ -16,8 +17,8 @@ public:
 	ObjectRenderer(GLFWwindow* win, Camera* cam);
 	void Draw();
 
-	Object3D GetObject() const { return object; }
-	Object3D& GetObjectRef() { return object; }
+	Object3D GetObject() const { return cubeObject; }
+	Object3D& GetObjectRef() { return cubeObject; }
 
 	void SetShaderProgram(GLuint programId);
 	GLuint GetShaderProgram() const { return shaderProgram; }
@@ -26,10 +27,13 @@ private:
 
 	GLFWwindow* window;
 	Camera* camera;
-	Object3D object;
 	float GetAspectRatio();
 	GLuint shaderProgram;
+	Object3D cubeObject;
+	LightSource lightSource;
 	
 	void SendProjectionData(float fov, float aspectRatio, float nearPlane, float farPlane);
+	void SetupCube();
+	void SetupLightSource();
 };
 

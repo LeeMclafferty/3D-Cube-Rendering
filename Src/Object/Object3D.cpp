@@ -18,8 +18,6 @@ Object3D::Object3D()
 	objectRightVector(glm::vec3(1.f, 0.f, 0.f)),
 	texture(Texture())
 {
-	glm::vec3 rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f); // Y-axis
-	testRotationQuat = glm::angleAxis(glm::radians(45.0f), rotationAxis);
 }
 
 void Object3D::SetShapeData(std::vector<Vertex> verticies, std::vector<GLuint> indicies, size_t vertexCount, size_t indexCount)

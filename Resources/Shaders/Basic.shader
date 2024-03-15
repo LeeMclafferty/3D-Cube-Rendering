@@ -16,7 +16,7 @@ void main()
     vec4 worldPos = modelTransformMatrix * vec4(aPos, 1.0);
     gl_Position = projectionMatrix * viewMatrix * worldPos;
     vertexColor = color;
-    texCoord = aTexCoord;
+    //texCoord = aTexCoord;
 }
 
 
@@ -31,6 +31,6 @@ out vec4 FragColor;
 
 void main()
 {
-	FragColor = texture(textureImg, texCoord);
-    //FragColor = vertexColor;
+	//FragColor = texture(textureImg, texCoord);
+    FragColor = vertexColor;
 };

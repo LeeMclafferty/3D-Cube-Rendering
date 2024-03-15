@@ -24,11 +24,9 @@ void Engine::MainLoop()
 			)
 	);
 
-	Texture tex;
-
 	while (!glfwWindowShouldClose(window))
 	{
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(objectRenderer.GetShaderProgram());
 		objectRenderer.Draw();

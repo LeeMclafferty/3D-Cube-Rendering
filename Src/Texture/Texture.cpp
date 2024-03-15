@@ -8,7 +8,7 @@
 Texture::Texture()
  :width(0), height(0), nrChannels(3), tData(nullptr), bufferId(NULL)
 {
-	GenTexture("D:\\Dev\\LocalRepos\\3D-CubeRenderer\\Resources\\Textures\\T_Wood.png");
+	GenTexture("D:\\Dev\\LocalRepos\\3D-CubeRenderer\\Resources\\Textures\\T_Stone.png");
 }
 
 void Texture::GenTexture(const char* path)
