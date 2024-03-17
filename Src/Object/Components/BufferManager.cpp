@@ -33,8 +33,8 @@ void BufferManager::CreateObject(const std::vector<Vertex> vertices, size_t vert
 void BufferManager::CreateLightSource(const std::vector<Vertex> vertices, size_t vertexCount, const std::vector<GLuint> indices, size_t indexCount)
 {
 	// Generate .. Bind .. Copy
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
+	glGenVertexArrays(1, &lightVAO);
+	glBindVertexArray(lightVAO);
 
 	glGenBuffers(1, &lightVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, lightVBO);

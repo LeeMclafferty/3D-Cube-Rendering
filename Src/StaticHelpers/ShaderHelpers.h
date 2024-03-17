@@ -93,8 +93,14 @@ namespace ShaderHelpers
 
 	static void SetUniformMatrix(GLuint shader, std::string uniformName, glm::mat4 matrix)
 	{
-		GLint modelTransformMatrixUniform = glGetUniformLocation(shader, uniformName.c_str());
-		glUniformMatrix4fv(modelTransformMatrixUniform, 1, GL_FALSE, &matrix[0][0]);
+		GLint matrixUniform = glGetUniformLocation(shader, uniformName.c_str());
+		glUniformMatrix4fv(matrixUniform, 1, GL_FALSE, &matrix[0][0]);
+	}
+
+	static void SetUniformVec4(GLuint shader, std::string uniformName, glm::vec4 vector4)
+	{
+		GLint vecUniform = glGetUniformLocation(shader, uniformName.c_str());
+		glUniform4f(vecUniform, vector4.x, vector4.y, vector4.z, vector4.w);
 	}
 
 	static unsigned int CompileShader(unsigned int glType, const std::string& source)

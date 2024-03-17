@@ -34,10 +34,11 @@ public:
 
 	glm::quat GetRotation() const { return rotation; }
 
+	ShapeData GetShapeData() { return shapeData; }
 	void SetShapeData(std::vector<Vertex> verticies, std::vector<GLuint> indicies, size_t vertexCount, size_t indexCount);
 	virtual void CreateShapeOnGPU();
 
-	GLuint GetVAO() { return bufferManager.GetVAO(); }
+	virtual GLuint GetVAO() { return bufferManager.GetVAO(); }
 	GLuint GetVBO() { return bufferManager.GetVBO(); }
 	GLuint GetEBO() { return bufferManager.GetEBO(); }
 

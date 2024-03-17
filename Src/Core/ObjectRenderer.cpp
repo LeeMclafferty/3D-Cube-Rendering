@@ -12,22 +12,27 @@
 ObjectRenderer::ObjectRenderer(GLFWwindow* win, Camera* cam)
 	:shaderProgram(0), window(win), camera(cam)
 {
-	SetupCube();
-	SetupLightSource();
+
 }
 
 void ObjectRenderer::Draw() 
 {
-	glBindVertexArray(cubeObject.GetVAO());
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	cubeObject.TransformObject();
-
+	SetupCube();
 	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
 	ShaderHelpers::SetUniformMatrix(shaderProgram, "viewMatrix", camera->GetViewMatrix());
 	GLint textureUniformLocation = glGetUniformLocation(shaderProgram, "textureImg");
 	glUniform1i(textureUniformLocation, 0);
-	glDrawElements(GL_TRIANGLES, 36 * 2, GL_UNSIGNED_INT, 0);
+
+	glBindVertexArray(cubeObject.GetVAO());
+ 	cubeObject.TransformObject();
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+	ShaderHelpers::SetUniformVec4(shaderProgram, "lightingColor", lightSource.GetColor());
+	SetupLightSource();
+	glBindVertexArray(lightSource.GetVAO());
+	lightSource.TransformObject();
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
 }
 
 void ObjectRenderer::SetShaderProgram(GLuint programId)
@@ -73,10 +78,8 @@ void ObjectRenderer::SetupLightSource()
 		PremadeShapes::LightSource, PremadeShapes::cubeIndices,
 		vertexCount, indexCount
 	);
-	cubeObject.CreateShapeOnGPU();
-	cubeObject.SetShaderProgram(shaderProgram);
+	lightSource.CreateShapeOnGPU();
+	lightSource.SetShaderProgram(shaderProgram);
 
-	//lightSource.SetTranslation(glm::vec3(0.0f, 0.0f, 0.0f));
-
-	lightSource.TransformObject();
+	lightSource.SetTranslation(glm::vec3(2.0f, 3.0f, -3.0f));
 }

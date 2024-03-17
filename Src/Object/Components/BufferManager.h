@@ -14,6 +14,9 @@ public:
 	GLuint GetVAO() { return VAO; }
 	GLuint GetVBO() { return VBO; }
 	GLuint GetEBO() { return EBO; }
+
+	GLuint GetLightVAO() { return lightVAO; }
+	GLuint GetLightVBO() { return lightVBO; }
 	
 	GLuint GetShaderProgram() { return shaderProgram; }
 	void SetShaderProgram(GLuint program) { shaderProgram = program; }
@@ -24,6 +27,7 @@ private:
 	GLuint EBO;
 	GLuint shaderProgram;
 
+	GLuint lightVAO;
 	GLuint lightVBO;
 	
 };

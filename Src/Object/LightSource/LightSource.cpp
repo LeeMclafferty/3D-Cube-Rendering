@@ -1,6 +1,7 @@
 #include "LightSource.h"
 
 LightSource::LightSource()
+	:color(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f))
 {
 
 }
