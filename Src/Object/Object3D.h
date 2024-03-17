@@ -5,7 +5,6 @@
 #include <vector>
 #include "Object/Components/BufferManager.h"
 #include "PremadeShapes/ShapeData.h"
-#include "Texture/Texture.h"
 
 struct Vertex;
 
@@ -64,8 +63,5 @@ protected:
 	glm::vec3 objectUpVector;
 	glm::vec3 objectForwardVector;
 	glm::vec3 objectRightVector;
-
-	Texture texture;
-
 };
 

@@ -48,6 +48,9 @@
     <ClCompile Include="Src\Object\LightSource\LightSource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Object\TexturedObject\TexturedObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\Engine.h">
@@ -92,8 +95,12 @@
     <ClInclude Include="Src\Object\LightSource\LightSource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Object\TexturedObject\TexturedObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic.shader" />
+    <None Include="Resources\Shaders\LightSource.Shader" />
   </ItemGroup>
 </Project>

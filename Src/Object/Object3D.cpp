@@ -15,8 +15,7 @@ Object3D::Object3D()
 	worldRight(glm::vec3(1.f, 0.f, 0.f)),
 	objectUpVector(glm::vec3(0.f, 1.f, 0.f)),
 	objectForwardVector(glm::vec3(0.f, 0.f, -1)),
-	objectRightVector(glm::vec3(1.f, 0.f, 0.f)),
-	texture(Texture())
+	objectRightVector(glm::vec3(1.f, 0.f, 0.f))
 {
 }
 

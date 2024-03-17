@@ -8,7 +8,13 @@
 Texture::Texture()
  :width(0), height(0), nrChannels(3), tData(nullptr), bufferId(NULL)
 {
-	GenTexture("D:\\Dev\\LocalRepos\\3D-CubeRenderer\\Resources\\Textures\\T_Stone.png");
+	GenTexture("D:\\Dev\\LocalRepos\\3D-CubeRenderer\\Resources\\Textures\\T_WorldGrid.png");
+}
+
+Texture::Texture(const char* path)
+ :width(0), height(0), nrChannels(3), tData(nullptr), bufferId(NULL)
+{
+	GenTexture(path);
 }
 
 void Texture::GenTexture(const char* path)
@@ -25,7 +31,7 @@ void Texture::GenTexture(const char* path)
 	tData = stbi_load(path, &width, &height, &nrChannels, 0);
 	if (tData)
 	{
-		GLenum format;
+		GLenum format = GL_RED;
 		if (nrChannels == 1)
 			format = GL_RED;
 		else if (nrChannels == 3)

@@ -3,6 +3,7 @@ class Texture
 {
 public:
 	Texture();
+	Texture(const char* path);
 
 private:
 	int width, height, nrChannels;

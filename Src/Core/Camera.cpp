@@ -77,6 +77,14 @@ void Camera::Move(int key)
 	{
 		globalPosition += glm::normalize(glm::cross(forwardVector, upVector)) * cameraSpeed;
 	}
+	else if (key == GLFW_KEY_E)
+	{
+		globalPosition += cameraSpeed * upVector;
+	}
+	else if (key == GLFW_KEY_Q)
+	{
+		globalPosition -= cameraSpeed * upVector;
+	}
 }
 
 void Camera::UpdateLocalVectors(glm::mat4 rotation)

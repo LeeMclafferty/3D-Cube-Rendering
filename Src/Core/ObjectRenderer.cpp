@@ -12,27 +12,12 @@
 ObjectRenderer::ObjectRenderer(GLFWwindow* win, Camera* cam)
 	:shaderProgram(0), window(win), camera(cam)
 {
-
 }
 
 void ObjectRenderer::Draw() 
 {
-	SetupCube();
-	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
-	ShaderHelpers::SetUniformMatrix(shaderProgram, "viewMatrix", camera->GetViewMatrix());
-	GLint textureUniformLocation = glGetUniformLocation(shaderProgram, "textureImg");
-	glUniform1i(textureUniformLocation, 0);
-
-	glBindVertexArray(cubeObject.GetVAO());
- 	cubeObject.TransformObject();
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-
-	ShaderHelpers::SetUniformVec4(shaderProgram, "lightingColor", lightSource.GetColor());
-	SetupLightSource();
-	glBindVertexArray(lightSource.GetVAO());
-	lightSource.TransformObject();
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-
+	DrawCube();
+	DrawLightSource();
 }
 
 void ObjectRenderer::SetShaderProgram(GLuint programId)
@@ -82,4 +67,46 @@ void ObjectRenderer::SetupLightSource()
 	lightSource.SetShaderProgram(shaderProgram);
 
 	lightSource.SetTranslation(glm::vec3(2.0f, 3.0f, -3.0f));
+}
+
+void ObjectRenderer::DrawCube()
+{
+	ShaderHelpers::ShaderSource source = ShaderHelpers::ParseShader("Resources/Shaders/Basic.shader");
+	SetShaderProgram(
+		ShaderHelpers::CreateShader(
+			source.vertexSource,
+			source.fragmentSource
+		)
+	);
+	glUseProgram(GetShaderProgram());
+
+	SetupCube();
+	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
+	ShaderHelpers::SetUniformMatrix(shaderProgram, "viewMatrix", camera->GetViewMatrix());
+	ShaderHelpers::SetUniformVec4(shaderProgram, "lightingColor", lightSource.GetColor());
+	//ShaderHelpers::SetUniformVec2(shaderProgram, "textureImg", cubeObject.texture);
+
+	glBindVertexArray(cubeObject.GetVAO());
+	cubeObject.TransformObject();
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+}
+
+void ObjectRenderer::DrawLightSource()
+{
+	ShaderHelpers::ShaderSource source = ShaderHelpers::ParseShader("Resources/Shaders/LightSource.shader");
+	SetShaderProgram(
+		ShaderHelpers::CreateShader(
+			source.vertexSource,
+			source.fragmentSource
+		)
+	);
+	glUseProgram(GetShaderProgram());
+
+	SetupLightSource();
+	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
+	ShaderHelpers::SetUniformMatrix(shaderProgram, "viewMatrix", camera->GetViewMatrix());
+
+	glBindVertexArray(lightSource.GetVAO());
+	lightSource.TransformObject();
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 }

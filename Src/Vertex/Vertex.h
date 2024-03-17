@@ -17,10 +17,12 @@ struct Color
 
 struct Vertex
 {
+	Vertex(glm::vec3 pos, Color col) : position(pos), color(col) {}
+	
+	Vertex(glm::vec3 pos, Color col, glm::vec2 coords) : position(pos), color(col),
+		textureCoordinates(coords) {}
+
 	glm::vec3 position;
 	Color color;
 	glm::vec2 textureCoordinates;
-	Vertex(glm::vec3 pos, Color col) : position(pos), color(col) {}
-	Vertex(glm::vec3 pos, Color col, glm::vec2 coords) : position(pos), color(col),
-		textureCoordinates(coords) {}
 };
