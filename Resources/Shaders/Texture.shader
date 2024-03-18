@@ -11,14 +11,14 @@ uniform mat4 projectionMatrix; // View to projection
 
 out vec4 vertexColor;
 out vec2 texCoord;
+
 void main()
 {
     vec4 worldPos = modelTransformMatrix * vec4(aPos, 1.0);
     gl_Position = projectionMatrix * viewMatrix * worldPos;
     vertexColor = color;
-    //texCoord = aTexCoord;
+    texCoord = aTexCoord;
 }
-
 
 #shader fragment
 #version 330 core
@@ -32,10 +32,5 @@ out vec4 FragColor;
 
 void main()
 {
-    float ambientStr = 0.5;
-    vec4 ambient = ambientStr * lightingColor;
-
-    FragColor = ambient * vertexColor;
-	//FragColor = texture(textureImg, texCoord);
-    //FragColor = vertexColor * lightingColor;
+	FragColor = texture(textureImg, texCoord);
 };

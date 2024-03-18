@@ -27,7 +27,8 @@ void BufferManager::CreateObject(const std::vector<Vertex> vertices, size_t vert
 
 	// Texture Coordinates
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (char*)(sizeof(GLfloat) * 3));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(7 * sizeof(GLfloat)));
+
 }
 
 void BufferManager::CreateLightSource(const std::vector<Vertex> vertices, size_t vertexCount, const std::vector<GLuint> indices, size_t indexCount)
@@ -54,5 +55,5 @@ void BufferManager::CreateLightSource(const std::vector<Vertex> vertices, size_t
 
 	// Texture Coordinates
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (char*)(sizeof(GLfloat) * 3));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 9, (char*)(sizeof(GLfloat) * 3));
 }

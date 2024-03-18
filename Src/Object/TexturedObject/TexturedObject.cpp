@@ -6,6 +6,12 @@ TexturedObject::TexturedObject()
 
 }
 
+TexturedObject::TexturedObject(const char* tPath)
+	:texture(Texture(tPath))
+{
+
+}
+
 void TexturedObject::SetTexture(Texture tex)
 {
 	texture = tex;

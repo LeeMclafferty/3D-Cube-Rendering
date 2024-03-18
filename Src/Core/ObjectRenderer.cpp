@@ -10,7 +10,8 @@
 #include "Camera.h"
 
 ObjectRenderer::ObjectRenderer(GLFWwindow* win, Camera* cam)
-	:shaderProgram(0), window(win), camera(cam)
+	:shaderProgram(0), window(win), camera(cam), 
+	cubeObject("D:\\Dev\\LocalRepos\\3D-CubeRenderer\\Resources\\Textures\\T_WorldGrid.png")
 {
 }
 
@@ -84,7 +85,7 @@ void ObjectRenderer::DrawCube()
 	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
 	ShaderHelpers::SetUniformMatrix(shaderProgram, "viewMatrix", camera->GetViewMatrix());
 	ShaderHelpers::SetUniformVec4(shaderProgram, "lightingColor", lightSource.GetColor());
-	//ShaderHelpers::SetUniformVec2(shaderProgram, "textureImg", cubeObject.texture);
+	ShaderHelpers::SetUniformSampler2D(shaderProgram, "textureImg");
 
 	glBindVertexArray(cubeObject.GetVAO());
 	cubeObject.TransformObject();

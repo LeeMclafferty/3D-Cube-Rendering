@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic.shader" />
-    <None Include="Resources\Shaders\LightSource.Shader" />
+    <None Include="Resources\Shaders\LightSource.shader" />
+    <None Include="Resources\Shaders\Texture.shader" />
   </ItemGroup>
 </Project>

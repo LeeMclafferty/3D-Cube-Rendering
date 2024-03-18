@@ -6,6 +6,7 @@ class TexturedObject : public Object3D
 {
 public:
     TexturedObject();
+    TexturedObject(const char* tPath);
 
     void SetTexture(Texture tex);
     Texture GetTexture() { return texture; }

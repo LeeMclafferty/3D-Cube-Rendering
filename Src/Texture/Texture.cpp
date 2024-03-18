@@ -19,6 +19,7 @@ Texture::Texture(const char* path)
 
 void Texture::GenTexture(const char* path)
 {
+	glActiveTexture(GL_TEXTURE0); // Zero is activated by default so not 100% needed in this use case.
 	glGenTextures(1, &bufferId);
 	glBindTexture(GL_TEXTURE_2D, bufferId);
 
@@ -44,11 +45,11 @@ void Texture::GenTexture(const char* path)
 		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, tData);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
-		std::cout << "Succeeded to load texture" << std::endl;
+		std::cout << "Succeeded to load texture: " << path << std::endl;
 	}
 	else
 	{
-		std::cout << "Failed to load texture" << std::endl;
+		std::cout << "Failed to load texture: " << path << std::endl;
 	}
 
 	stbi_image_free(tData);

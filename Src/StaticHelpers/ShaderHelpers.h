@@ -103,10 +103,12 @@ namespace ShaderHelpers
 		glUniform4f(vecUniform, vector4.x, vector4.y, vector4.z, vector4.w);
 	}
 
-	static void SetUniformVec2(GLuint shader, std::string uniformName, glm::vec2 vector2)
+	static void SetUniformSampler2D(GLuint shader, std::string uniformName)
 	{
-		GLint textureUniformLocation = glGetUniformLocation(shader, uniformName.c_str());
-		glUniform2f(textureUniformLocation, vector2.x, vector2.y);
+		int textureUniformLoc = glGetUniformLocation(shader, uniformName.c_str());
+		glUseProgram(shader);
+		glUniform1i(textureUniformLoc, 0); // Always using index 0 for now
+
 	}
 
 	static unsigned int CompileShader(unsigned int glType, const std::string& source)
