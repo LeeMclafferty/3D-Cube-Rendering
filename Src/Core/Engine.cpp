@@ -11,7 +11,7 @@ Engine::Engine(GLFWwindow* glWin)
 	inputHandler(glWin, &objectRenderer, &camera)
 {
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 }
 
 void Engine::MainLoop()

@@ -8,8 +8,8 @@ Object3D::Object3D()
 	shapeData(ShapeData()),
 	bufferManager(BufferManager()),
 	scale(glm::vec3(1.0f, 1.0f, 1.0f)),
-	rotation(glm::quat(1.0f, 0.0f, 0.0f, 0.0f)),
-	position(glm::vec3(0.0f, 0.0f, -3.f)),
+	rotation(glm::quat(0.0f, 0.0f, 0.0f, 0.0f)),
+	position(glm::vec3(0.0f, 0.0f, -1.f)),
 	worldForward(glm::vec3(0.f, 0.f, -1.f)),
 	worldUp(glm::vec3(0.f, 1.f, 0.f)),
 	worldRight(glm::vec3(1.f, 0.f, 0.f)),
@@ -50,7 +50,7 @@ glm::mat4 Object3D::GetTransformationMatrix()
 void Object3D::TransformObject() 
 {
 	glm::mat4 transformationMatrix = GetTransformationMatrix();
-	ShaderHelpers::SetUniformMatrix(bufferManager.GetShaderProgram(), "modelTransformMatrix", transformationMatrix);
+	ShaderHelpers::SetUniformMatrix4(bufferManager.GetShaderProgram(), "modelTransformMatrix", transformationMatrix);
 }
 
 /*

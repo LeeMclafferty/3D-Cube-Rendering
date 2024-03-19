@@ -38,5 +38,7 @@ private:
 
 	void DrawCube();
 	void DrawLightSource();
+
+	void UpdateNormalUniform(Object3D obj);
 };
 

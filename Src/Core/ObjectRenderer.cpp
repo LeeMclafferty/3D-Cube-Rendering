@@ -17,8 +17,8 @@ ObjectRenderer::ObjectRenderer(GLFWwindow* win, Camera* cam)
 
 void ObjectRenderer::Draw() 
 {
-	DrawCube();
 	DrawLightSource();
+	DrawCube();
 }
 
 void ObjectRenderer::SetShaderProgram(GLuint programId)
@@ -41,7 +41,7 @@ float ObjectRenderer::GetAspectRatio()
 void ObjectRenderer::SendProjectionData(float fov, float aspectRatio, float nearPlane, float farPlane)
 {
 	glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
-	ShaderHelpers::SetUniformMatrix(shaderProgram, "projectionMatrix", projectionMatrix);
+	ShaderHelpers::SetUniformMatrix4(shaderProgram, "projectionMatrix", projectionMatrix);
 }
 
 void ObjectRenderer::SetupCube()
@@ -67,7 +67,7 @@ void ObjectRenderer::SetupLightSource()
 	lightSource.CreateShapeOnGPU();
 	lightSource.SetShaderProgram(shaderProgram);
 
-	lightSource.SetTranslation(glm::vec3(2.0f, 3.0f, -3.0f));
+	lightSource.SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
 }
 
 void ObjectRenderer::DrawCube()
@@ -83,9 +83,12 @@ void ObjectRenderer::DrawCube()
 
 	SetupCube();
 	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
-	ShaderHelpers::SetUniformMatrix(shaderProgram, "viewMatrix", camera->GetViewMatrix());
+	ShaderHelpers::SetUniformMatrix4(shaderProgram, "viewMatrix", camera->GetViewMatrix());
 	ShaderHelpers::SetUniformVec4(shaderProgram, "lightingColor", lightSource.GetColor());
 	ShaderHelpers::SetUniformSampler2D(shaderProgram, "textureImg");
+	ShaderHelpers::SetUniformVec3(shaderProgram, "lightPos", lightSource.GetPosition());
+
+	UpdateNormalUniform(cubeObject);
 
 	glBindVertexArray(cubeObject.GetVAO());
 	cubeObject.TransformObject();
@@ -105,9 +108,17 @@ void ObjectRenderer::DrawLightSource()
 
 	SetupLightSource();
 	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
-	ShaderHelpers::SetUniformMatrix(shaderProgram, "viewMatrix", camera->GetViewMatrix());
+	ShaderHelpers::SetUniformMatrix4(shaderProgram, "viewMatrix", camera->GetViewMatrix());
 
 	glBindVertexArray(lightSource.GetVAO());
 	lightSource.TransformObject();
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+}
+
+void ObjectRenderer::UpdateNormalUniform(Object3D obj)
+{
+	// Update normal as view changes.
+	glm::mat4 modelMatrix = obj.getlo();
+	glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelMatrix)));
+	ShaderHelpers::SetUniformMatrix3(GetShaderProgram(), "normalMatrix", normalMatrix);
 }

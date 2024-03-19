@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm.hpp>
+#include <gtc/type_ptr.hpp>
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -91,10 +92,22 @@ namespace ShaderHelpers
 		return true;
 	}
 
-	static void SetUniformMatrix(GLuint shader, std::string uniformName, glm::mat4 matrix)
+	static void SetUniformMatrix4(GLuint shader, std::string uniformName, glm::mat4 matrix)
 	{
 		GLint matrixUniform = glGetUniformLocation(shader, uniformName.c_str());
 		glUniformMatrix4fv(matrixUniform, 1, GL_FALSE, &matrix[0][0]);
+	}
+
+	static void SetUniformMatrix3(GLuint shader, std::string uniformName, glm::mat3 matrix)
+	{
+		GLint matrixUniform = glGetUniformLocation(shader, uniformName.c_str());
+		glUniformMatrix3fv(matrixUniform, 1, GL_FALSE, glm::value_ptr(matrix));
+	}
+
+	static void SetUniformVec3(GLuint shader, std::string uniformName, glm::vec3 vector3)
+	{
+		GLint vecUniform = glGetUniformLocation(shader, uniformName.c_str());
+		glUniform3f(vecUniform, vector3.x, vector3.y, vector3.z);
 	}
 
 	static void SetUniformVec4(GLuint shader, std::string uniformName, glm::vec4 vector4)

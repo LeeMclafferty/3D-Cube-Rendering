@@ -21,7 +21,7 @@ public:
 	// Direct Setters
 	void SetScale(const glm::vec3& inScale) { scale = inScale; }
 	void SetRotation(const glm::quat& inRotation) { rotation = inRotation; }
-	void SetTranslation(const glm::vec3& translation) { position = translation; }
+	void SetPosition(const glm::vec3& translation) { position = translation; }
 
 	// Additive to current transforms
 	void AddScale(glm::vec3 inScale) { scale += inScale; }
