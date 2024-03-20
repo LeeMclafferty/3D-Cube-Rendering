@@ -67,7 +67,8 @@ void ObjectRenderer::SetupLightSource()
 	lightSource.CreateShapeOnGPU();
 	lightSource.SetShaderProgram(shaderProgram);
 
-	lightSource.SetPosition(glm::vec3(2.0f, 0.0f, 0.0f));
+	lightSource.SetPosition(glm::vec3(2.0f, 1.0f, -3.0f));
+	lightSource.SetScale(glm::vec3(0.3f, 0.3f, 0.3f));
 }
 
 void ObjectRenderer::DrawCube()
@@ -118,7 +119,7 @@ void ObjectRenderer::DrawLightSource()
 void ObjectRenderer::UpdateNormalUniform(Object3D obj)
 {
 	// Update normal as view changes.
-	glm::mat4 modelMatrix = obj.getlo();
+	glm::mat4 modelMatrix = obj.GetTransformationMatrix();
 	glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelMatrix)));
 	ShaderHelpers::SetUniformMatrix3(GetShaderProgram(), "normalMatrix", normalMatrix);
 }

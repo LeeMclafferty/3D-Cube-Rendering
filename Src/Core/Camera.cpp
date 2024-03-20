@@ -7,7 +7,7 @@
 #include "../Time/TimeManager.h"
 
 Camera::Camera()
-	: globalPosition(glm::vec3(0.0f, 0.0f, 3.0f)),
+	: globalPosition(glm::vec3(0.0f, 0.0f, 0.0f)),
 	lookSensitivity(1.f),
 	moveSensitivity(5.f),
 	cameraSpeed(0.1f), 
@@ -47,7 +47,7 @@ void Camera::Rotate(glm::vec2 mouseDeltas)
 
 	// Convert mouse deltas to radians and apply sensitivity
 	float yawRadians = glm::radians(mouseDeltas.x * lookSensitivity);
-	float pitchRadians = glm::radians(-mouseDeltas.y * lookSensitivity);
+	float pitchRadians = glm::radians(mouseDeltas.y * lookSensitivity);
 
 	// Generate rotation matrices for yaw and pitch
 	glm::mat4 yawMatrix = glm::rotate(glm::mat4(1.0f), yawRadians, up);

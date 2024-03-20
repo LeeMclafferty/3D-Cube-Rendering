@@ -17,16 +17,12 @@ struct Color
 
 struct Vertex
 {
-	Vertex(glm::vec3 pos, Color col) 
-		: position(pos), color(col), textureCoordinates(glm::vec2(0.0f, 0.0f)), normals(glm::vec3(0.0f, 0.0f, 0.0f))
-	{}
-	
-	Vertex(glm::vec3 pos, Color col, glm::vec2 coords) 
-		: position(pos), color(col), textureCoordinates(coords), normals(glm::vec3(0.0f, 0.0f, 0.0f))
+	Vertex(glm::vec3 pos, Color col)
+		: position(pos), color(col), textureCoordinates(glm::vec3(0.f, 0.f, 0.f)), normals(glm::vec3(0.f, 0.f, 0.f))
 	{}
 
-	Vertex(glm::vec3 pos, Color col, glm::vec3 n)
-		: position(pos), color(col), textureCoordinates(glm::vec2(0.0f, 0.0f)), normals(n)
+	Vertex(glm::vec3 pos, Color col, glm::vec2 coords, glm::vec3 n)
+		: position(pos), color(col), textureCoordinates(coords), normals(n)
 	{}
 
 	glm::vec3 position;

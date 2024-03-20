@@ -2,7 +2,8 @@
 #version 330 core
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec4 color;
-layout (location = 2) in vec3 aNormal;
+layout (location = 3) in vec3 aTexCoord;
+layout (location = 3) in vec3 aNormal;
 
 uniform mat4 modelTransformMatrix; // Model to world
 uniform mat4 viewMatrix; // World to view
@@ -35,7 +36,7 @@ out vec4 FragColor;
 
 void main()
 {
-    float ambientStr = 0.3;
+    float ambientStr = 0.1;
     vec4 ambient = ambientStr * lightingColor;
 
     vec3 norm = normalize(normal);
@@ -43,6 +44,8 @@ void main()
 
     float diff = max(dot(norm, lightDir), 0.0);
     vec4 diffuse = diff * lightingColor;
-    //FragColor = (ambient + diffuse) * vertexColor;
-    FragColor = vec4(normalize(normal) * 0.5 + 0.5, 1.0);
-};
+
+    //FragColor = vertexColor;
+    FragColor = (ambient + diffuse) * vertexColor;
+    //FragColor = vec4(normal * 0.5 + 0.5, 1.0);
+}
