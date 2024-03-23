@@ -82,12 +82,10 @@ void ObjectRenderer::DrawCube()
 	);
 	glUseProgram(GetShaderProgram());
 
+	SetUniforms();
+
 	SetupCube();
 	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
-	ShaderHelpers::SetUniformMatrix4(shaderProgram, "viewMatrix", camera->GetViewMatrix());
-	ShaderHelpers::SetUniformVec4(shaderProgram, "lightingColor", lightSource.GetColor());
-	ShaderHelpers::SetUniformSampler2D(shaderProgram, "textureImg");
-	ShaderHelpers::SetUniformVec3(shaderProgram, "lightPos", lightSource.GetPosition());
 
 	UpdateNormalUniform(cubeObject);
 
@@ -122,4 +120,15 @@ void ObjectRenderer::UpdateNormalUniform(Object3D obj)
 	glm::mat4 modelMatrix = obj.GetTransformationMatrix();
 	glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelMatrix)));
 	ShaderHelpers::SetUniformMatrix3(GetShaderProgram(), "normalMatrix", normalMatrix);
+}
+
+void ObjectRenderer::SetUniforms()
+{
+	ShaderHelpers::SetUniformMatrix4(shaderProgram, "viewMatrix", camera->GetViewMatrix());
+	ShaderHelpers::SetUniformVec4(shaderProgram, "lightingColor", lightSource.GetColor());
+	ShaderHelpers::SetUniformSampler2D(shaderProgram, "textureImg");
+	ShaderHelpers::SetUniformVec3(shaderProgram, "lightPos", lightSource.GetPosition());
+	ShaderHelpers::SetUniformVec3(shaderProgram, "cameraPos", camera->GetGlobalPosition());
+
+	//std::cout << 
 }

@@ -40,5 +40,6 @@ private:
 	void DrawLightSource();
 
 	void UpdateNormalUniform(Object3D obj);
+	void SetUniforms();
 };
 

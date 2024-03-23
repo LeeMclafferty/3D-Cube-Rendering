@@ -31,21 +31,29 @@ in vec3 fragPos;
 
 uniform vec4 lightingColor;
 uniform vec3 lightPos;
+uniform vec3 cameraPos;
 
 out vec4 FragColor;
 
 void main()
 {
     float ambientStr = 0.1;
+    float specStr = .5;
     vec4 ambient = ambientStr * lightingColor;
 
     vec3 norm = normalize(normal);
+
     vec3 lightDir = normalize(lightPos - fragPos);
+    vec3 viewDir = normalize(cameraPos - fragPos);
+    vec3 reflectDir = reflect(-lightDir, norm);
 
     float diff = max(dot(norm, lightDir), 0.0);
     vec4 diffuse = diff * lightingColor;
+    
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 128);
+    vec4 specular = specStr * spec * lightingColor;
 
     //FragColor = vertexColor;
-    FragColor = (ambient + diffuse) * vertexColor;
+    FragColor = (ambient + diffuse + specular) * vertexColor;
     //FragColor = vec4(normal * 0.5 + 0.5, 1.0);
 }
