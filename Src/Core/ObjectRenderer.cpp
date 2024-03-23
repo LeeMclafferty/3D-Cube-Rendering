@@ -10,35 +10,21 @@
 #include "Camera.h"
 
 ObjectRenderer::ObjectRenderer(GLFWwindow* win, Camera* cam)
-	:shaderProgram(0), window(win), camera(cam)
+	:shaderProgram(0), window(win), camera(cam), 
+	cubeObject("D:\\Dev\\LocalRepos\\3D-CubeRenderer\\Resources\\Textures\\T_WorldGrid.png")
 {
-	size_t vertexCount = PremadeShapes::cubeVertices.size();
-	size_t indexCount = PremadeShapes::cubeIndices.size();
-	object.SetShapeData(
-		PremadeShapes::cubeVertices, PremadeShapes::cubeIndices, 
-		vertexCount, indexCount
-	);
-	object.CreateShapeOnGPU();
-	object.SetShaderProgram(shaderProgram);
 }
 
 void ObjectRenderer::Draw() 
 {
-	glBindVertexArray(object.GetVAO());
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	object.TransformObject();
-
-	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
-	ShaderHelpers::SetUniformMatrix(shaderProgram, "viewMatrix", camera->GetViewMatrix());
-	GLint textureUniformLocation = glGetUniformLocation(shaderProgram, "textureImg");
-	glUniform1i(textureUniformLocation, 0);
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	DrawLightSource();
+	DrawCube();
 }
 
 void ObjectRenderer::SetShaderProgram(GLuint programId)
 {
-	object.SetShaderProgram(programId);
+	cubeObject.SetShaderProgram(programId);
+	lightSource.SetShaderProgram(programId);
 	shaderProgram = programId;
 }
 
@@ -55,5 +41,94 @@ float ObjectRenderer::GetAspectRatio()
 void ObjectRenderer::SendProjectionData(float fov, float aspectRatio, float nearPlane, float farPlane)
 {
 	glm::mat4 projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
-	ShaderHelpers::SetUniformMatrix(shaderProgram, "projectionMatrix", projectionMatrix);
+	ShaderHelpers::SetUniformMatrix4(shaderProgram, "projectionMatrix", projectionMatrix);
+}
+
+void ObjectRenderer::SetupCube()
+{
+	size_t vertexCount = PremadeShapes::cubeVertices.size();
+	size_t indexCount = PremadeShapes::cubeIndices.size();
+	cubeObject.SetShapeData(
+		PremadeShapes::cubeVertices, PremadeShapes::cubeIndices,
+		vertexCount, indexCount
+	);
+	cubeObject.CreateShapeOnGPU();
+	cubeObject.SetShaderProgram(shaderProgram);
+}
+
+void ObjectRenderer::SetupLightSource()
+{
+	size_t vertexCount = PremadeShapes::LightSource.size();
+	size_t indexCount = PremadeShapes::cubeIndices.size();
+	lightSource.SetShapeData(
+		PremadeShapes::LightSource, PremadeShapes::cubeIndices,
+		vertexCount, indexCount
+	);
+	lightSource.CreateShapeOnGPU();
+	lightSource.SetShaderProgram(shaderProgram);
+
+	lightSource.SetPosition(glm::vec3(2.0f, 1.0f, -3.0f));
+	lightSource.SetScale(glm::vec3(0.3f, 0.3f, 0.3f));
+}
+
+void ObjectRenderer::DrawCube()
+{
+	ShaderHelpers::ShaderSource source = ShaderHelpers::ParseShader("Resources/Shaders/Basic.shader");
+	SetShaderProgram(
+		ShaderHelpers::CreateShader(
+			source.vertexSource,
+			source.fragmentSource
+		)
+	);
+	glUseProgram(GetShaderProgram());
+
+	SetUniforms();
+
+	SetupCube();
+	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
+
+	UpdateNormalUniform(cubeObject);
+
+	glBindVertexArray(cubeObject.GetVAO());
+	cubeObject.TransformObject();
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+}
+
+void ObjectRenderer::DrawLightSource()
+{
+	ShaderHelpers::ShaderSource source = ShaderHelpers::ParseShader("Resources/Shaders/LightSource.shader");
+	SetShaderProgram(
+		ShaderHelpers::CreateShader(
+			source.vertexSource,
+			source.fragmentSource
+		)
+	);
+	glUseProgram(GetShaderProgram());
+
+	SetupLightSource();
+	SendProjectionData(60.f, GetAspectRatio(), .01f, 1000.f);
+	ShaderHelpers::SetUniformMatrix4(shaderProgram, "viewMatrix", camera->GetViewMatrix());
+
+	glBindVertexArray(lightSource.GetVAO());
+	lightSource.TransformObject();
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+}
+
+void ObjectRenderer::UpdateNormalUniform(Object3D obj)
+{
+	// Update normal as view changes.
+	glm::mat4 modelMatrix = obj.GetTransformationMatrix();
+	glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelMatrix)));
+	ShaderHelpers::SetUniformMatrix3(GetShaderProgram(), "normalMatrix", normalMatrix);
+}
+
+void ObjectRenderer::SetUniforms()
+{
+	ShaderHelpers::SetUniformMatrix4(shaderProgram, "viewMatrix", camera->GetViewMatrix());
+	ShaderHelpers::SetUniformVec4(shaderProgram, "lightingColor", lightSource.GetColor());
+	ShaderHelpers::SetUniformSampler2D(shaderProgram, "textureImg");
+	ShaderHelpers::SetUniformVec3(shaderProgram, "lightPos", lightSource.GetPosition());
+	ShaderHelpers::SetUniformVec3(shaderProgram, "cameraPos", camera->GetGlobalPosition());
+
+	//std::cout << 
 }

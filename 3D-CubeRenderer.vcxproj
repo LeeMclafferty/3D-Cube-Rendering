@@ -159,6 +159,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\TexturedObject\TexturedObject.cpp" />
+    <ClCompile Include="Src\Object\LightSource\LightSource.cpp" />
     <ClCompile Include="Src\Object\Object3D.cpp" />
     <ClCompile Include="Src\Core\Camera.cpp" />
     <ClCompile Include="Src\Core\Input\InputHandler.cpp" />
@@ -171,6 +173,8 @@
     <ClCompile Include="Src\Texture\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\TexturedObject\TexturedObject.h" />
+    <ClInclude Include="Src\Object\LightSource\LightSource.h" />
     <ClInclude Include="Src\Object\Object3D.h" />
     <ClInclude Include="Src\Core\Camera.h" />
     <ClInclude Include="Src\Core\Input\InputHandler.h" />
@@ -187,6 +191,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic.shader" />
+    <None Include="Resources\Shaders\LightSource.shader" />
+    <None Include="Resources\Shaders\Texture.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,7 +5,6 @@
 #include <vector>
 #include "Object/Components/BufferManager.h"
 #include "PremadeShapes/ShapeData.h"
-#include "Texture/Texture.h"
 
 struct Vertex;
 
@@ -15,9 +14,6 @@ public:
 	Object3D();
 	glm::mat4 GetTransformationMatrix();
 
-	// TESTING
-	glm::quat testRotationQuat;
-
 	glm::vec3 GetScale() { return scale; }
 	glm::quat GetRotation() { return rotation; }
 	glm::vec3 GetPosition() { return position; }
@@ -25,7 +21,7 @@ public:
 	// Direct Setters
 	void SetScale(const glm::vec3& inScale) { scale = inScale; }
 	void SetRotation(const glm::quat& inRotation) { rotation = inRotation; }
-	void SetTranslation(const glm::vec3& translation) { position = translation; }
+	void SetPosition(const glm::vec3& translation) { position = translation; }
 
 	// Additive to current transforms
 	void AddScale(glm::vec3 inScale) { scale += inScale; }
@@ -37,10 +33,11 @@ public:
 
 	glm::quat GetRotation() const { return rotation; }
 
+	ShapeData GetShapeData() { return shapeData; }
 	void SetShapeData(std::vector<Vertex> verticies, std::vector<GLuint> indicies, size_t vertexCount, size_t indexCount);
-	void CreateShapeOnGPU();
+	virtual void CreateShapeOnGPU();
 
-	GLuint GetVAO() { return bufferManager.GetVAO(); }
+	virtual GLuint GetVAO() { return bufferManager.GetVAO(); }
 	GLuint GetVBO() { return bufferManager.GetVBO(); }
 	GLuint GetEBO() { return bufferManager.GetEBO(); }
 
@@ -49,7 +46,7 @@ public:
 
 	void UpdateLocalVectors();
 
-private:
+protected:
 	
 	ShapeData shapeData;
 	BufferManager bufferManager;
@@ -66,8 +63,5 @@ private:
 	glm::vec3 objectUpVector;
 	glm::vec3 objectForwardVector;
 	glm::vec3 objectRightVector;
-
-	Texture texture;
-
 };
 

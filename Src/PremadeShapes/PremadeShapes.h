@@ -7,61 +7,104 @@
 namespace PremadeShapes
 {
 	std::vector<Vertex> cubeVertices = {
-		// Front face
-		Vertex(glm::vec3(-0.5f, -0.5f,  0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
-		Vertex(glm::vec3(0.5f, -0.5f,  0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),
-		Vertex(glm::vec3(0.5f,  0.5f,  0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
-		Vertex(glm::vec3(-0.5f,  0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)),
+		// Front Blue
+		Vertex(glm::vec3(-0.5f, -0.5f,  0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)),
+		Vertex(glm::vec3( 0.5f, -0.5f,  0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)),
+		Vertex(glm::vec3(-0.5f,  0.5f,  0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)),
+		Vertex(glm::vec3( 0.5f,  0.5f,  0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)),
 
-		// Right face
-		Vertex(glm::vec3(0.5f, -0.5f,  0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
-		Vertex(glm::vec3(0.5f, -0.5f, -0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),
-		Vertex(glm::vec3(0.5f,  0.5f, -0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
-		Vertex(glm::vec3(0.5f,  0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)),
+		// Right Green
+		Vertex(glm::vec3( 0.5f, -0.5f, -0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)),
+		Vertex(glm::vec3( 0.5f, -0.5f,  0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)),
+		Vertex(glm::vec3( 0.5f,  0.5f, -0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f)),
+		Vertex(glm::vec3( 0.5f,  0.5f,  0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f)),
 
-		// Back face
-		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
-		Vertex(glm::vec3(0.5f, -0.5f, -0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),
-		Vertex(glm::vec3(0.5f,  0.5f, -0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
-		Vertex(glm::vec3(-0.5f,  0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)),
+		// Back Red
+		Vertex(glm::vec3( 0.5f, -0.5f, -0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)),
+		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)),
+		Vertex(glm::vec3( 0.5f,  0.5f, -0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(0.0f, 0.0f, -1.0f)),
+		Vertex(glm::vec3(-0.5f,  0.5f, -0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(0.0f, 0.0f, -1.0f)),
 
-		// Left face
-		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
-		Vertex(glm::vec3(-0.5f, -0.5f,  0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),
-		Vertex(glm::vec3(-0.5f, 0.5f,  0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
-		Vertex(glm::vec3(-0.5f, 0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)),
+		// Left Magenta
+		Vertex(glm::vec3(-0.5f, -0.5f,  0.5f), Color(1.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), Color(1.0f, 0.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f,  0.5f,  0.5f), Color(1.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f,  0.5f, -0.5f), Color(1.0f, 0.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)),
 
-		// Top face
-		Vertex(glm::vec3(-0.5f, 0.5f, -0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
-		Vertex(glm::vec3(0.5f, 0.5f, -0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),
-		Vertex(glm::vec3(0.5f, 0.5f, 0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
-		Vertex(glm::vec3(-0.5f, 0.5f, 0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)),
+		// Top Cyan
+		Vertex(glm::vec3( 0.5f, 0.5f, -0.5f),  Color(0.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f, 0.5f, -0.5f),  Color(0.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)),
+		Vertex(glm::vec3( 0.5f, 0.5f,  0.5f),  Color(0.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f, 0.5f,  0.5f),  Color(0.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)),
 
-		// Bottom face
-		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), Color(1.0f, 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)),
-		Vertex(glm::vec3(0.5f, -0.5f, -0.5f), Color(0.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)),
-		Vertex(glm::vec3(0.5f, -0.5f, 0.5f), Color(0.0f, 0.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
-		Vertex(glm::vec3(-0.5f, -0.5f, 0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f))
+		// Bottom Yellow
+		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), Color(1.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)),
+		Vertex(glm::vec3( 0.5f, -0.5f, -0.5f), Color(1.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f, -0.5f,  0.5f), Color(1.0f, 1.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)),
+		Vertex(glm::vec3( 0.5f, -0.5f,  0.5f), Color(1.0f, 1.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f))
+	};
 
+	std::vector<Vertex> LightSource = {
+		// Front
+		Vertex(glm::vec3(-0.5f, -0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)),
+		Vertex(glm::vec3( 0.5f, -0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)),
+		Vertex(glm::vec3(-0.5f,  0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)),
+		Vertex(glm::vec3( 0.5f,  0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f)),
+
+		// Right
+		Vertex(glm::vec3( 0.5f, -0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)),
+		Vertex(glm::vec3( 0.5f, -0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)),
+		Vertex(glm::vec3( 0.5f,  0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f)),
+		Vertex(glm::vec3( 0.5f,  0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f)),
+													 
+		// Back 
+		Vertex(glm::vec3( 0.5f, -0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)),
+		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)),
+		Vertex(glm::vec3( 0.5f,  0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(0.0f, 0.0f, -1.0f)),
+		Vertex(glm::vec3(-0.5f,  0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(0.0f, 0.0f, -1.0f)),
+													 
+		// Left
+		Vertex(glm::vec3(-0.5f, -0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f,  0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f,  0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(-1.0f, 0.0f, 0.0f)),
+													 
+		// Top
+		Vertex(glm::vec3( 0.5f, 0.5f, -0.5f),  Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f, 0.5f, -0.5f),  Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)),
+		Vertex(glm::vec3( 0.5f, 0.5f,  0.5f),  Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f, 0.5f,  0.5f),  Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)),
+													 
+		// Bottom
+		Vertex(glm::vec3(-0.5f, -0.5f, -0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)),
+		Vertex(glm::vec3(0.5f, -0.5f, -0.5f),  Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)),
+		Vertex(glm::vec3(-0.5f, -0.5f,  0.5f), Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)),
+		Vertex(glm::vec3(0.5f, -0.5f,  0.5f),  Color(1.0f, 1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f))
 	};
 
 	std::vector<unsigned int> cubeIndices = {
-		// Front face
-		0, 1, 2, 2, 3, 0,
-		// Right face
-		4, 5, 6, 6, 7, 4,
-		// Back face
-		8, 9, 10, 10, 11, 8,
-		// Left face
-		12, 13, 14, 14, 15, 12,
-		// Top face
-		16, 17, 18, 18, 19, 16,
+		// Front face 
+		1,3,0,
+		3,2,0,
+		// Right face 
+		4,6,5,
+		6,7,5,
+		// Back face 
+		9,11,8,
+		11,10,8,
+		// Left face 
+		12,14,13,
+		14,15,13,
+		// Top face 
+		18,16,19,
+		16,17,19,
 		// Bottom face
-		20, 21, 22, 22, 23, 20
+		21,23,20,
+		23,22,20
 	};
 
 	std::vector<Vertex> recVertices {
-		// Position						// Color
+		// Position								// Color
 		Vertex(glm::vec3(+0.5f, -0.5f, 0.0f),  Color(1.0f, 0.0f, 0.0f, 1.0f)), // bottom right
 		Vertex(glm::vec3(+0.5f, +0.5f, 0.0f),  Color(1.0f, 0.0f, 0.0f, 1.0f)), // top right
 		Vertex(glm::vec3(-0.5f, -0.5f, 0.0f),  Color(1.0f, 0.0f, 1.0f, 1.0f)), // bottom left
@@ -90,13 +133,12 @@ namespace PremadeShapes
 	std::vector<GLuint> doubleTriangleIndicies {
 		// Triangle 1
 		0, 1, 2,
-
 		// Triangle 2
 		3, 4, 5
 	};
 
 	std::vector<Vertex> triangleVerticies {
-		// Position						//Color
+		// Position								//Color
 		Vertex(glm::vec3(-1.0, -1.0, +0.5f),  Color(1.0f, 0.0f, 0.6f, 1.0f)), // Left
 		Vertex(glm::vec3(0.0, +1.0, +0.5f),   Color(0.1f, 0.6f, 1.0f, 1.0f)), // Top
 		Vertex(glm::vec3(+1.0, -1.0, +0.5f),  Color(0.6f, 0.0f, 1.0f, 1.0f)), // Right

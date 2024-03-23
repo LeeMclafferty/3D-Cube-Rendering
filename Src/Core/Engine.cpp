@@ -11,26 +11,15 @@ Engine::Engine(GLFWwindow* glWin)
 	inputHandler(glWin, &objectRenderer, &camera)
 {
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 }
 
 void Engine::MainLoop()
 {
-	ShaderHelpers::ShaderSource source = ShaderHelpers::ParseShader("Resources/Shaders/Basic.shader");
-	objectRenderer.SetShaderProgram(
-			ShaderHelpers::CreateShader(
-			source.vertexSource, 
-			source.fragmentSource 
-			)
-	);
-
-	Texture tex;
-
 	while (!glfwWindowShouldClose(window))
 	{
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glUseProgram(objectRenderer.GetShaderProgram());
 		objectRenderer.Draw();
 		TimeManager::UpdateDeltatime();
 		glfwSwapBuffers(window);

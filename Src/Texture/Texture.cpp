@@ -8,11 +8,18 @@
 Texture::Texture()
  :width(0), height(0), nrChannels(3), tData(nullptr), bufferId(NULL)
 {
-	GenTexture("D:\\Dev\\LocalRepos\\3D-CubeRenderer\\Resources\\Textures\\T_Wood.png");
+	GenTexture("D:\\Dev\\LocalRepos\\3D-CubeRenderer\\Resources\\Textures\\T_WorldGrid.png");
+}
+
+Texture::Texture(const char* path)
+ :width(0), height(0), nrChannels(3), tData(nullptr), bufferId(NULL)
+{
+	GenTexture(path);
 }
 
 void Texture::GenTexture(const char* path)
 {
+	glActiveTexture(GL_TEXTURE0); // Zero is activated by default so not 100% needed in this use case.
 	glGenTextures(1, &bufferId);
 	glBindTexture(GL_TEXTURE_2D, bufferId);
 
@@ -25,7 +32,7 @@ void Texture::GenTexture(const char* path)
 	tData = stbi_load(path, &width, &height, &nrChannels, 0);
 	if (tData)
 	{
-		GLenum format;
+		GLenum format = GL_RED;
 		if (nrChannels == 1)
 			format = GL_RED;
 		else if (nrChannels == 3)
@@ -38,11 +45,11 @@ void Texture::GenTexture(const char* path)
 		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, tData);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
-		std::cout << "Succeeded to load texture" << std::endl;
+		std::cout << "Succeeded to load texture: " << path << std::endl;
 	}
 	else
 	{
-		std::cout << "Failed to load texture" << std::endl;
+		std::cout << "Failed to load texture: " << path << std::endl;
 	}
 
 	stbi_image_free(tData);

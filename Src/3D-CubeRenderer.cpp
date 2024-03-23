@@ -6,7 +6,7 @@
 
 int main(void)
 {
-	int windowWidth = 800, windowHeight = 600;
+	int windowWidth = 1600, windowHeight = 1200;
 	GLFWwindow* window;
 
 	/* Initialize GLFW */
