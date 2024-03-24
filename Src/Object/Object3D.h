@@ -26,10 +26,9 @@ public:
 	// Additive to current transforms
 	void AddScale(glm::vec3 inScale) { scale += inScale; }
 	void MovePosition(glm::vec3 translation) { position += translation; }
-	void AddRotation(glm::quat inRotation) { rotation = inRotation * rotation; }
+	void Rotate(glm::vec2 deltas);
 
 	void TransformObject();
-	void Rotate(glm::vec2 deltas);
 
 	glm::quat GetRotation() const { return rotation; }
 

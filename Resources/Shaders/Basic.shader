@@ -53,7 +53,7 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 128);
     vec4 specular = specStr * spec * lightingColor;
 
-    //FragColor = vertexColor;
+    //FragColor = vertexColor * ambient;
     FragColor = (ambient + diffuse + specular) * vertexColor;
     //FragColor = vec4(normal * 0.5 + 0.5, 1.0);
 }

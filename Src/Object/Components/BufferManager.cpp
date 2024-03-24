@@ -2,8 +2,7 @@
 #include "BufferManager.h"
 #include "Vertex/Vertex.h"
 
-
-void BufferManager::CreateObject(const std::vector<Vertex> vertices, size_t vertexCount, const std::vector<GLuint> indices, size_t indexCount)
+void BufferManager::CreateObjectOnGPU(const std::vector<Vertex> vertices, size_t vertexCount, const std::vector<GLuint> indices, size_t indexCount)
 {
 	// Generate .. Bind .. Copy
 	glGenVertexArrays(1, &VAO);
@@ -30,12 +29,12 @@ void BufferManager::CreateObject(const std::vector<Vertex> vertices, size_t vert
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(GLfloat) * 7));
 
 	// Normals attribute
-	glEnableVertexAttribArray(3); // Note the index is 3 here if texture coordinates are used
+	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(GLfloat) * 9));
 
 }
 
-void BufferManager::CreateLightSource(const std::vector<Vertex> vertices, size_t vertexCount, const std::vector<GLuint> indices, size_t indexCount)
+void BufferManager::CreateLightSourceOnGPU(const std::vector<Vertex> vertices, size_t vertexCount, const std::vector<GLuint> indices, size_t indexCount)
 {
 	// Generate .. Bind .. Copy
 	glGenVertexArrays(1, &lightVAO);

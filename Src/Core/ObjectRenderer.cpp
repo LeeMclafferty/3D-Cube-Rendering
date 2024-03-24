@@ -8,15 +8,18 @@
 
 #include "PremadeShapes/PremadeShapes.h"
 #include "Camera.h"
+#include "Time/TimeManager.h"
 
 ObjectRenderer::ObjectRenderer(GLFWwindow* win, Camera* cam)
 	:shaderProgram(0), window(win), camera(cam), 
 	cubeObject("D:\\Dev\\LocalRepos\\3D-CubeRenderer\\Resources\\Textures\\T_WorldGrid.png")
 {
+
 }
 
 void ObjectRenderer::Draw() 
 {
+	OrbitLight(lightSource, cubeObject.GetPosition(), 1.f, TimeManager::GetDeltaTime(), 2.f);
 	DrawLightSource();
 	DrawCube();
 }
@@ -67,8 +70,8 @@ void ObjectRenderer::SetupLightSource()
 	lightSource.CreateShapeOnGPU();
 	lightSource.SetShaderProgram(shaderProgram);
 
-	lightSource.SetPosition(glm::vec3(2.0f, 1.0f, -3.0f));
-	lightSource.SetScale(glm::vec3(0.3f, 0.3f, 0.3f));
+	//lightSource.SetPosition(glm::vec3(0.0f, 1.0f, -3.0f));
+	lightSource.SetScale(glm::vec3(0.2f, 0.2f, 0.2f));
 }
 
 void ObjectRenderer::DrawCube()
@@ -129,6 +132,23 @@ void ObjectRenderer::SetUniforms()
 	ShaderHelpers::SetUniformSampler2D(shaderProgram, "textureImg");
 	ShaderHelpers::SetUniformVec3(shaderProgram, "lightPos", lightSource.GetPosition());
 	ShaderHelpers::SetUniformVec3(shaderProgram, "cameraPos", camera->GetGlobalPosition());
+}
 
-	//std::cout << 
+void ObjectRenderer::OrbitLight(LightSource& light, const glm::vec3& centerVec, float orbitRadius, float deltaTime, float speed) {
+	static float angle = 0.0f;
+	glm::vec3 orbitingVec(0.f,0.f,0.f);
+	angle += speed * deltaTime;
+
+	// Ensure the angle stays within the range of 0 to 2*pi
+	if (angle > glm::two_pi<float>()) 
+	{
+		angle -= glm::two_pi<float>();
+	}
+
+	// Calculate the new position for the orbiting vector
+	orbitingVec.x = centerVec.x + orbitRadius * cos(angle);
+	//orbitingVec.y = centerVec.y + orbitRadius * sin(angle);
+	orbitingVec.z = centerVec.z + orbitRadius * sin(angle);
+
+	light.SetPosition(orbitingVec);
 }

@@ -41,5 +41,6 @@ private:
 
 	void UpdateNormalUniform(Object3D obj);
 	void SetUniforms();
+	void OrbitLight(LightSource& light, const glm::vec3& centerVec, float orbitRadius, float deltaTime, float speed);
 };
 

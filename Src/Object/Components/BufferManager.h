@@ -8,8 +8,8 @@ struct Vertex;
 class BufferManager
 {
 public:
-	void CreateObject(const std::vector<Vertex> vertices, size_t vertexCount, const std::vector<GLuint> indices, size_t indexCount);
-	void CreateLightSource(const std::vector<Vertex> vertices, size_t vertexCount, const std::vector<GLuint> indices, size_t indexCount);
+	void CreateObjectOnGPU(const std::vector<Vertex> vertices, size_t vertexCount, const std::vector<GLuint> indices, size_t indexCount);
+	void CreateLightSourceOnGPU(const std::vector<Vertex> vertices, size_t vertexCount, const std::vector<GLuint> indices, size_t indexCount);
 
 	GLuint GetVAO() { return VAO; }
 	GLuint GetVBO() { return VBO; }

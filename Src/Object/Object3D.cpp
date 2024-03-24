@@ -29,7 +29,7 @@ void Object3D::SetShapeData(std::vector<Vertex> verticies, std::vector<GLuint> i
 
 void Object3D::CreateShapeOnGPU()
 {
-	bufferManager.CreateObject(
+	bufferManager.CreateObjectOnGPU(
 		shapeData.verticies, 
 		shapeData.numVertex,
 		shapeData.indices, 

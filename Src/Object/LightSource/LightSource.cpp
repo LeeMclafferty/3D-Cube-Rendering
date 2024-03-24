@@ -8,7 +8,7 @@ LightSource::LightSource()
 
 void LightSource::CreateShapeOnGPU()
 {
-	bufferManager.CreateLightSource(
+	bufferManager.CreateLightSourceOnGPU(
 		shapeData.verticies,
 		shapeData.numVertex,
 		shapeData.indices,
